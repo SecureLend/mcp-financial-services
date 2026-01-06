@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/core/business.json",
+  "title": "Business Profile Schema",
+  "description": "Standardized business information for financial product matching",
+
+  "type": "object",
+  "properties": {
+    "basic": {
+      "type": "object",
+      "properties": {
+        "legal_name": {
+          "type": "string",
+          "description": "Legal business name"
+        },
+        "dba": {
+          "type": "string",
+          "description": "Doing business as (trade name)"
+        },
+        "ein": {
+          "type": "string",
+          "pattern": "^[0-9]{2}-[0-9]{7}$",
+          "description": "Employer Identification Number (XX-XXXXXXX)"
+        },
+        "entity_type": {
+          "type": "string",
+          "enum": [
+            "sole_proprietorship",
+            "partnership",
+            "llc",
+            "s_corp",
+            "c_corp",
+            "non_profit",
+            "other"
+          ]
+        },
+        "incorporation_date": {
+          "$ref": "base.json#/definitions/DateString"
+        },
+        "industry": {
+          "type": "object",
+          "properties": {
+            "naics_code": {
+              "type": "string",
+              "pattern": "^[0-9]{2,6}$",
+              "description": "NAICS industry classification code"
+            },
+            "description": {
+              "type": "string",
+              "description": "Industry description (e.g., 'Restaurant', 'Software Development')"
+            },
+            "sic_code": {
+              "type": "string",
+              "description": "SIC code (legacy, but still used)"
+            }
+          }
+        }
+      },
+      "required": ["legal_name", "entity_type"]
+    },
+
+    "location": {
+      "type": "object",
+      "properties": {
+        "headquarters": {
+          "$ref": "base.json#/definitions/Geography"
+        },
+        "operating_states": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "States where business operates"
+        },
+        "num_locations": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of physical locations"
+        }
+      }
+    },
+
+    "financials": {
+      "type": "object",
+      "properties": {
+        "revenue": {
+          "type": "object",
+          "properties": {
+            "annual": {
+              "$ref": "base.json#/definitions/Money",
+              "description": "Annual revenue (most recent year)"
+            },
+            "monthly_average": {
+              "$ref": "base.json#/definitions/Money",
+              "description": "Average monthly revenue"
+            },
+            "trailing_12_months": {
+              "$ref": "base.json#/definitions/Money",
+              "description": "Trailing 12 months revenue"
+            },
+            "growth_rate": {
+              "$ref": "base.json#/definitions/Percentage",
+              "description": "Year-over-year growth rate"
+            },
+            "fiscal_year_end": {
+              "type": "string",
+              "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+              "description": "Fiscal year end date (MM-DD)"
+            }
+          }
+        },
+
+        "profitability": {
+          "type": "object",
+          "properties": {
+            "net_income": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "ebitda": {
+              "$ref": "base.json#/definitions/Money",
+              "description": "Earnings before interest, taxes, depreciation, amortization"
+            },
+            "profit_margin": {
+              "$ref": "base.json#/definitions/Percentage"
+            }
+          }
+        },
+
+        "cash_flow": {
+          "type": "object",
+          "properties": {
+            "monthly_average": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "runway_months": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Months of cash runway at current burn rate"
+            }
+          }
+        },
+
+        "balance_sheet": {
+          "type": "object",
+          "properties": {
+            "total_assets": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "total_liabilities": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "working_capital": {
+              "$ref": "base.json#/definitions/Money"
+            }
+          }
+        },
+
+        "existing_debt": {
+          "type": "object",
+          "properties": {
+            "total_debt": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "monthly_debt_service": {
+              "$ref": "base.json#/definitions/Money"
+            },
+            "debt_to_revenue_ratio": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+
+    "operations": {
+      "type": "object",
+      "properties": {
+        "employee_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "full_time_employees": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "part_time_employees": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contractors": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "payroll_frequency": {
+          "type": "string",
+          "enum": ["weekly", "biweekly", "semimonthly", "monthly"]
+        }
+      }
+    },
+
+    "credit": {
+      "type": "object",
+      "properties": {
+        "business_credit_score": {
+          "type": "object",
+          "properties": {
+            "duns_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Dun & Bradstreet PAYDEX score"
+            },
+            "experian_intelliscore": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "equifax_business_score": {
+              "type": "integer",
+              "minimum": 101,
+              "maximum": 992
+            }
+          }
+        },
+        "owner_credit_score": {
+          "$ref": "base.json#/definitions/CreditScoreRange",
+          "description": "Primary owner's personal credit score"
+        },
+        "bankruptcy_history": {
+          "type": "boolean"
+        },
+        "tax_liens": {
+          "type": "boolean"
+        },
+        "judgments": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "ownership": {
+      "type": "object",
+      "properties": {
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "ownership_percentage": {
+                "$ref": "base.json#/definitions/Percentage"
+              },
+              "title": { "type": "string" },
+              "credit_score": {
+                "$ref": "base.json#/definitions/CreditScoreRange"
+              }
+            }
+          }
+        },
+        "minority_owned": { "type": "boolean" },
+        "woman_owned": { "type": "boolean" },
+        "veteran_owned": { "type": "boolean" }
+      }
+    },
+
+    "banking": {
+      "type": "object",
+      "properties": {
+        "primary_bank": {
+          "type": "string",
+          "description": "Primary banking relationship"
+        },
+        "bank_account_age_months": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "average_daily_balance": {
+          "$ref": "base.json#/definitions/Money"
+        },
+        "nsf_incidents_last_12_months": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Non-sufficient funds incidents"
+        }
+      }
+    }
+  },
+
+  "required": ["basic"]
+}

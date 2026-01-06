@@ -1,0 +1,182 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/core/base.json",
+  "title": "SecureLend MCP Financial Services - Base Schema",
+  "description": "Common types and patterns for all financial service schemas",
+
+  "definitions": {
+    "Money": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Monetary amount"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "default": "USD",
+          "description": "ISO 4217 currency code"
+        }
+      },
+      "required": ["amount"]
+    },
+
+    "Percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage value (0-100)"
+    },
+
+    "BasisPoints": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Interest rate or fee in basis points (1 bp = 0.01%)"
+    },
+
+    "DateString": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date (YYYY-MM-DD)"
+    },
+
+    "CreditScoreRange": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 300,
+          "maximum": 850,
+          "description": "FICO score"
+        },
+        "bureau": {
+          "type": "string",
+          "enum": ["Experian", "Equifax", "TransUnion", "VantageScore"],
+          "description": "Credit bureau that provided the score"
+        },
+        "date": {
+          "$ref": "#/definitions/DateString",
+          "description": "Date the score was pulled"
+        }
+      },
+      "required": ["score"]
+    },
+
+    "Geography": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        },
+        "state": {
+          "type": "string",
+          "description": "State/province code (e.g., 'CA', 'ON')"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        }
+      },
+      "required": ["country"]
+    },
+
+    "FinancialInstitution": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the institution"
+        },
+        "name": {
+          "type": "string",
+          "description": "Institution name"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "bank",
+            "credit_union",
+            "online_lender",
+            "fintech",
+            "traditional_lender",
+            "insurance_company",
+            "payment_processor"
+          ],
+          "description": "Type of financial institution"
+        },
+        "regulatory": {
+          "type": "object",
+          "properties": {
+            "fdic": {
+              "type": "boolean",
+              "description": "FDIC insured"
+            },
+            "fdic_cert": {
+              "type": "string",
+              "description": "FDIC certificate number"
+            },
+            "ncua": {
+              "type": "boolean",
+              "description": "NCUA insured (credit unions)"
+            },
+            "state_chartered": {
+              "type": "boolean"
+            },
+            "licenses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "State licenses or registrations"
+            }
+          }
+        },
+        "contact": {
+          "type": "object",
+          "properties": {
+            "website": { "type": "string", "format": "uri" },
+            "phone": { "type": "string" },
+            "email": { "type": "string", "format": "email" }
+          }
+        }
+      },
+      "required": ["id", "name", "type"]
+    },
+
+    "ApprovalProbability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Probability of approval (0.0 - 1.0)"
+    },
+
+    "FundingSpeed": {
+      "type": "object",
+      "properties": {
+        "min_days": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_days": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "typical_days": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "description": {
+          "type": "string",
+          "description": "Human-readable timing (e.g., 'Same day', '1-3 business days')"
+        }
+      },
+      "required": ["description"]
+    }
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/loans/business-loans.json",
+  "title": "Business Loan Product Schema",
+  "description": "Schema for business loan requests, offers, and applications",
+
+  "definitions": {
+    "LoanRequest": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "$ref": "../../core/base.json#/definitions/Money",
+          "description": "Requested loan amount"
+        },
+
+        "purpose": {
+          "type": "string",
+          "enum": [
+            "working_capital",
+            "equipment_purchase",
+            "real_estate",
+            "business_acquisition",
+            "inventory",
+            "expansion",
+            "debt_consolidation",
+            "payroll",
+            "marketing",
+            "renovation",
+            "startup_costs",
+            "other"
+          ],
+          "description": "Primary loan purpose"
+        },
+
+        "purpose_details": {
+          "type": "string",
+          "description": "Additional details about loan purpose"
+        },
+
+        "term_preference": {
+          "type": "object",
+          "properties": {
+            "min_months": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "max_months": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "preferred_months": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+
+        "collateral_available": {
+          "type": "object",
+          "properties": {
+            "has_collateral": { "type": "boolean" },
+            "type": {
+              "type": "string",
+              "enum": [
+                "real_estate",
+                "equipment",
+                "inventory",
+                "accounts_receivable",
+                "securities",
+                "none"
+              ]
+            },
+            "estimated_value": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+            "lien_position": {
+              "type": "string",
+              "enum": ["first", "second", "subordinate"]
+            }
+          }
+        },
+
+        "urgency": {
+          "type": "string",
+          "enum": ["immediate", "within_week", "within_month", "exploring"],
+          "description": "How quickly funding is needed"
+        },
+
+        "business_profile": {
+          "$ref": "../../core/business.json"
+        }
+      },
+
+      "required": ["amount", "purpose", "business_profile"]
+    },
+
+    "LoanOffer": {
+      "type": "object",
+      "properties": {
+        "offer_id": {
+          "type": "string",
+          "description": "Unique identifier for this offer"
+        },
+
+        "lender": {
+          "$ref": "../../core/base.json#/definitions/FinancialInstitution"
+        },
+
+        "product": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Product name (e.g., 'SBA 7(a) Loan', 'Term Loan')"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "term_loan",
+                "line_of_credit",
+                "sba_7a",
+                "sba_504",
+                "equipment_financing",
+                "invoice_factoring",
+                "merchant_cash_advance",
+                "revenue_based_financing",
+                "commercial_real_estate",
+                "bridge_loan"
+              ]
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": ["name", "type"]
+        },
+
+        "terms": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+
+            "interest_rate": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["fixed", "variable"]
+                },
+                "rate": {
+                  "$ref": "../../core/base.json#/definitions/Percentage",
+                  "description": "Annual percentage rate"
+                },
+                "apr": {
+                  "$ref": "../../core/base.json#/definitions/Percentage",
+                  "description": "Annual percentage rate including fees"
+                },
+                "index": {
+                  "type": "string",
+                  "description": "Index for variable rates (e.g., 'Prime', 'SOFR')"
+                },
+                "margin": {
+                  "$ref": "../../core/base.json#/definitions/BasisPoints",
+                  "description": "Margin over index for variable rates"
+                }
+              },
+              "required": ["type", "rate"]
+            },
+
+            "term_months": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Loan term in months"
+            },
+
+            "payment": {
+              "type": "object",
+              "properties": {
+                "frequency": {
+                  "type": "string",
+                  "enum": [
+                    "daily",
+                    "weekly",
+                    "biweekly",
+                    "monthly",
+                    "quarterly"
+                  ]
+                },
+                "amount": {
+                  "$ref": "../../core/base.json#/definitions/Money",
+                  "description": "Regular payment amount"
+                },
+                "first_payment_date": {
+                  "$ref": "../../core/base.json#/definitions/DateString"
+                }
+              }
+            },
+
+            "total_cost": {
+              "$ref": "../../core/base.json#/definitions/Money",
+              "description": "Total amount to be repaid (principal + interest)"
+            }
+          },
+          "required": ["amount", "interest_rate", "term_months"]
+        },
+
+        "fees": {
+          "type": "object",
+          "properties": {
+            "origination": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "percentage": {
+                  "$ref": "../../core/base.json#/definitions/Percentage"
+                }
+              }
+            },
+            "processing": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+            "underwriting": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+            "prepayment_penalty": {
+              "type": "object",
+              "properties": {
+                "has_penalty": { "type": "boolean" },
+                "terms": { "type": "string" }
+              }
+            },
+            "late_payment": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "percentage": {
+                  "$ref": "../../core/base.json#/definitions/Percentage"
+                }
+              }
+            }
+          }
+        },
+
+        "requirements": {
+          "type": "object",
+          "properties": {
+            "min_credit_score": {
+              "type": "integer",
+              "minimum": 300,
+              "maximum": 850
+            },
+            "min_time_in_business_months": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "min_annual_revenue": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+            "collateral_required": {
+              "type": "boolean"
+            },
+            "personal_guarantee_required": {
+              "type": "boolean"
+            },
+            "business_plan_required": {
+              "type": "boolean"
+            },
+            "financial_statements_required": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "tax_returns_2_years",
+                  "bank_statements_3_months",
+                  "bank_statements_6_months",
+                  "profit_loss",
+                  "balance_sheet",
+                  "cash_flow_statement"
+                ]
+              }
+            }
+          }
+        },
+
+        "matching": {
+          "type": "object",
+          "properties": {
+            "approval_probability": {
+              "$ref": "../../core/base.json#/definitions/ApprovalProbability"
+            },
+            "match_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "How well this offer matches the request (0-100)"
+            },
+            "match_reasons": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Why this is a good match"
+            },
+            "concerns": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Potential issues or concerns"
+            }
+          }
+        },
+
+        "process": {
+          "type": "object",
+          "properties": {
+            "application_method": {
+              "type": "string",
+              "enum": ["online", "phone", "in_person", "broker"],
+              "description": "How to apply"
+            },
+            "application_url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Direct application link"
+            },
+            "decision_time": {
+              "type": "object",
+              "properties": {
+                "prequalification": {
+                  "type": "string",
+                  "description": "Time to prequalification (e.g., 'Instant', '24 hours')"
+                },
+                "approval": {
+                  "type": "string",
+                  "description": "Time to approval decision"
+                }
+              }
+            },
+            "funding_speed": {
+              "$ref": "../../core/base.json#/definitions/FundingSpeed"
+            }
+          }
+        },
+
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "offer_expires": {
+              "type": "string",
+              "format": "date-time",
+              "description": "When this offer expires"
+            },
+            "rate_locked": {
+              "type": "boolean",
+              "description": "Whether interest rate is locked"
+            },
+            "special_programs": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Special programs (e.g., 'SBA', 'USDA', 'Minority-owned business')"
+            },
+            "affiliate_disclosure": {
+              "type": "string",
+              "description": "Required affiliate disclosures"
+            }
+          }
+        }
+      },
+
+      "required": ["offer_id", "lender", "product", "terms"]
+    }
+  }
+}

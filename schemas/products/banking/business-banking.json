@@ -1,0 +1,314 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/banking/business-banking.json",
+  "title": "Business Banking Product Schema",
+
+  "definitions": {
+    "BankingRequest": {
+      "type": "object",
+      "properties": {
+        "account_type": {
+          "type": "string",
+          "enum": ["checking", "savings", "money_market", "combined"]
+        },
+
+        "usage_profile": {
+          "type": "object",
+          "properties": {
+            "monthly_revenue": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+            "monthly_transactions": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Estimated monthly transaction count"
+            },
+            "transaction_types": {
+              "type": "object",
+              "properties": {
+                "ach_transfers": {
+                  "type": "integer",
+                  "description": "Monthly ACH transfers"
+                },
+                "wire_transfers": {
+                  "type": "integer",
+                  "description": "Monthly wire transfers"
+                },
+                "check_deposits": {
+                  "type": "integer"
+                },
+                "cash_deposits": {
+                  "type": "integer"
+                },
+                "card_transactions": {
+                  "type": "integer"
+                }
+              }
+            },
+            "average_balance": {
+              "$ref": "../../core/base.json#/definitions/Money",
+              "description": "Expected average account balance"
+            },
+            "international_transactions": {
+              "type": "boolean",
+              "description": "Needs international capabilities"
+            }
+          }
+        },
+
+        "features_needed": {
+          "type": "object",
+          "properties": {
+            "online_banking": { "type": "boolean", "default": true },
+            "mobile_app": { "type": "boolean", "default": true },
+            "api_access": { "type": "boolean" },
+            "multi_user_access": { "type": "boolean" },
+            "accounting_integration": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["quickbooks", "xero", "freshbooks", "sage"]
+              }
+            },
+            "debit_cards": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of debit cards needed"
+            },
+            "sub_accounts": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of sub-accounts needed"
+            },
+            "treasury_management": { "type": "boolean" },
+            "fraud_protection": { "type": "boolean" },
+            "bill_pay": { "type": "boolean" },
+            "merchant_services": { "type": "boolean" }
+          }
+        },
+
+        "business_profile": {
+          "$ref": "../../core/business.json"
+        }
+      },
+
+      "required": ["account_type"]
+    },
+
+    "BankingOffer": {
+      "type": "object",
+      "properties": {
+        "offer_id": { "type": "string" },
+
+        "bank": {
+          "$ref": "../../core/base.json#/definitions/FinancialInstitution"
+        },
+
+        "account": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Account product name"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["checking", "savings", "money_market", "sweep"]
+            },
+            "description": { "type": "string" }
+          }
+        },
+
+        "rates_and_fees": {
+          "type": "object",
+          "properties": {
+            "interest_rate": {
+              "type": "object",
+              "properties": {
+                "apy": {
+                  "$ref": "../../core/base.json#/definitions/Percentage",
+                  "description": "Annual Percentage Yield"
+                },
+                "tiered_rates": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "balance_min": {
+                        "$ref": "../../core/base.json#/definitions/Money"
+                      },
+                      "balance_max": {
+                        "$ref": "../../core/base.json#/definitions/Money"
+                      },
+                      "apy": {
+                        "$ref": "../../core/base.json#/definitions/Percentage"
+                      }
+                    }
+                  },
+                  "description": "Tiered interest rates based on balance"
+                }
+              }
+            },
+
+            "monthly_fee": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+
+            "fee_waiver_conditions": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "How to waive monthly fee"
+            },
+
+            "minimum_balance": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+
+            "opening_deposit": {
+              "$ref": "../../core/base.json#/definitions/Money"
+            },
+
+            "transaction_fees": {
+              "type": "object",
+              "properties": {
+                "included_transactions": {
+                  "type": "integer",
+                  "description": "Free transactions per month"
+                },
+                "excess_transaction_fee": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "wire_transfer_incoming": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "wire_transfer_outgoing": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "ach_transfer": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "cash_deposit": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "check_deposit": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                }
+              }
+            },
+
+            "overdraft_fees": {
+              "type": "object",
+              "properties": {
+                "fee_amount": {
+                  "$ref": "../../core/base.json#/definitions/Money"
+                },
+                "overdraft_protection_available": { "type": "boolean" }
+              }
+            }
+          }
+        },
+
+        "features": {
+          "type": "object",
+          "properties": {
+            "online_banking": { "type": "boolean" },
+            "mobile_app": {
+              "type": "object",
+              "properties": {
+                "available": { "type": "boolean" },
+                "ios": { "type": "boolean" },
+                "android": { "type": "boolean" },
+                "rating": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 5
+                }
+              }
+            },
+            "api_access": { "type": "boolean" },
+            "multi_user_access": {
+              "type": "object",
+              "properties": {
+                "available": { "type": "boolean" },
+                "max_users": { "type": "integer" },
+                "permission_controls": { "type": "boolean" }
+              }
+            },
+            "accounting_integrations": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "debit_cards": {
+              "type": "object",
+              "properties": {
+                "included": { "type": "integer" },
+                "virtual_cards": { "type": "boolean" },
+                "cashback": {
+                  "$ref": "../../core/base.json#/definitions/Percentage"
+                }
+              }
+            },
+            "customer_support": {
+              "type": "object",
+              "properties": {
+                "phone": { "type": "boolean" },
+                "chat": { "type": "boolean" },
+                "email": { "type": "boolean" },
+                "hours": { "type": "string" }
+              }
+            }
+          }
+        },
+
+        "promotions": {
+          "type": "object",
+          "properties": {
+            "signup_bonus": {
+              "$ref": "../../core/base.json#/definitions/Money",
+              "description": "New account bonus"
+            },
+            "bonus_requirements": {
+              "type": "string",
+              "description": "Requirements to earn bonus"
+            },
+            "promotional_apy": {
+              "$ref": "../../core/base.json#/definitions/Percentage"
+            },
+            "promotional_period_months": {
+              "type": "integer"
+            }
+          }
+        },
+
+        "matching": {
+          "type": "object",
+          "properties": {
+            "match_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "estimated_monthly_cost": {
+              "$ref": "../../core/base.json#/definitions/Money",
+              "description": "Expected monthly cost based on usage"
+            },
+            "estimated_annual_interest": {
+              "$ref": "../../core/base.json#/definitions/Money",
+              "description": "Expected interest earned annually"
+            },
+            "pros": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "cons": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      },
+
+      "required": ["offer_id", "bank", "account", "rates_and_fees"]
+    }
+  }
+}
