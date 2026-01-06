@@ -219,4 +219,4 @@ MIT © [SecureLend](https://securelend.ai)
 
 **Built with ❤️ by the SecureLend team**
 
-[Get API Key](https://securelend.ai/signup) • [Documentation](https://docs.securelend.ai) • [Examples](./examples) • [Contributing](./CONTRIBUTING.md)
+[Get API Key](https://developers.securelend.ai) • [Documentation](https://docs.securelend.ai) • [Examples](./examples) • [Contributing](./CONTRIBUTING.md)

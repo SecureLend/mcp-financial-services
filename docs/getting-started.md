@@ -21,7 +21,7 @@ pnpm add @securelend/sdk
 
 To use the SecureLend API, you need an API key.
 
-1.  **Sign up:** Create an account at [securelend.ai](https://developers.securelend.ai).
+1.  **Sign up:** Create an account at [developers.securelend.ai](https://developers.securelend.ai).
 2.  **Dashboard:** Navigate to the "API Keys" section in your developer dashboard.
 3.  **Create key:** Generate a new secret key. You will have separate keys for test and live environments.
 
