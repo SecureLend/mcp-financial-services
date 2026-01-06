@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/insurance.json",
+  "title": "Business Insurance Product Schema",
+  "description": "Schema for business insurance requests and quotes",
+  "definitions": {
+    "InsuranceRequest": {
+      "type": "object",
+      "properties": {
+        "insurance_type": {
+          "type": "string",
+          "enum": [
+            "general_liability",
+            "professional_liability",
+            "workers_compensation",
+            "commercial_property",
+            "business_owners_policy"
+          ]
+        },
+        "coverage_amount": {
+          "$ref": "../core/base.json#/definitions/Money"
+        },
+        "business_profile": {
+          "$ref": "../core/business.json"
+        }
+      },
+      "required": ["insurance_type", "business_profile"]
+    },
+    "InsuranceQuote": {
+      "type": "object",
+      "properties": {
+        "quote_id": { "type": "string" },
+        "insurer": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "policy_type": { "type": "string" },
+        "coverage": {
+          "type": "object",
+          "properties": {
+            "limit": { "$ref": "../core/base.json#/definitions/Money" },
+            "deductible": { "$ref": "../core/base.json#/definitions/Money" }
+          }
+        },
+        "premium": {
+          "type": "object",
+          "properties": {
+            "monthly": { "$ref": "../core/base.json#/definitions/Money" },
+            "annual": { "$ref": "../core/base.json#/definitions/Money" }
+          }
+        },
+        "quote_expires": { "type": "string", "format": "date-time" },
+        "apply_url": { "type": "string", "format": "uri" }
+      },
+      "required": ["quote_id", "insurer", "policy_type", "coverage", "premium"]
+    }
+  }
+}

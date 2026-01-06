@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/loans.json",
+  "title": "Loan Products Schema",
+  "description": "A wrapper schema for various loan products offered by SecureLend.",
+  "oneOf": [
+    { "$ref": "./products/loans/business-loans.json#/definitions/LoanRequest" },
+    { "$ref": "./products/loans/business-loans.json#/definitions/LoanOffer" }
+  ]
+}

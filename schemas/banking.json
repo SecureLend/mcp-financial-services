@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/banking.json",
+  "title": "Banking Products Schema",
+  "description": "A wrapper schema for various banking products offered by SecureLend.",
+  "oneOf": [
+    { "$ref": "./products/banking/business-banking.json#/definitions/BankingRequest" },
+    { "$ref": "./products/banking/business-banking.json#/definitions/BankingOffer" }
+  ]
+}

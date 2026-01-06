@@ -140,7 +140,7 @@ npm run dev
 |---------|---------|-------------|
 | [@securelend/sdk](./packages/core) | ![npm](https://img.shields.io/npm/v/@securelend/sdk) | Core SDK for JavaScript/TypeScript |
 | [@securelend/react](./packages/react) | ![npm](https://img.shields.io/npm/v/@securelend/react) | React hooks and components |
-| [securelend-python](./packages/python) | ![PyPI](https://img.shields.io/pypi/v/securelend) | Python SDK (coming soon) |
+| [securelend-python](./packages/python) | ![PyPI](https://img.shields.io/badge/pypi-coming_soon-blue) | Python SDK (coming soon) |
 
 ## Roadmap
 
@@ -183,7 +183,18 @@ function LoanFinder() {
     request: { amount: 200000, purpose: 'equipment' }
   });
   
-  return <div>{offers.map(offer => <LoanCard offer={offer} />)}</div>;
+  return (
+    <div>
+      {offers.map(offer => (
+        <div key={offer.offer_id}>
+          <h3>{offer.lender.name} - {offer.product.name}</h3>
+          <p>
+            Rate: {offer.terms.interest_rate.rate}% for ${offer.terms.amount.amount}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 // Express.js API

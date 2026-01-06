@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/credit-cards.json",
+  "title": "Business Credit Card Product Schema",
+  "description": "Schema for business credit card requests and offers",
+  "definitions": {
+    "CreditCardRequest": {
+      "type": "object",
+      "properties": {
+        "credit_score": {
+          "$ref": "../core/base.json#/definitions/CreditScoreRange"
+        },
+        "monthly_spend": {
+          "$ref": "../core/base.json#/definitions/Money"
+        },
+        "spend_categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": [
+                  "advertising", "gas", "travel", "dining", "office_supplies", "utilities", "general"
+                ]
+              },
+              "monthly_amount": {
+                "$ref": "../core/base.json#/definitions/Money"
+              }
+            }
+          }
+        },
+        "preferences": {
+          "type": "object",
+          "properties": {
+            "rewards_type": {
+              "type": "string",
+              "enum": ["cashback", "points", "miles", "no_preference"]
+            },
+            "annual_fee_max": {
+              "$ref": "../core/base.json#/definitions/Money"
+            },
+            "intro_apr": {
+              "type": "boolean"
+            }
+          }
+        },
+        "business_profile": {
+          "$ref": "../core/business.json"
+        }
+      },
+      "required": ["credit_score", "monthly_spend"]
+    },
+    "CreditCardOffer": {
+      "type": "object",
+      "properties": {
+        "offer_id": { "type": "string" },
+        "issuer": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "card_name": { "type": "string" },
+        "rewards": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string", "enum": ["cashback", "points", "miles"] },
+            "base_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "bonus_categories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "category": { "type": "string" },
+                  "rate": { "type": "number" },
+                  "description": { "type": "string" }
+                }
+              }
+            },
+            "signup_bonus": {
+              "type": "object",
+              "properties": {
+                "description": { "type": "string" },
+                "spend_requirement": { "$ref": "../core/base.json#/definitions/Money" },
+                "months_to_earn": { "type": "integer" }
+              }
+            }
+          }
+        },
+        "fees": {
+          "type": "object",
+          "properties": {
+            "annual_fee": { "$ref": "../core/base.json#/definitions/Money" },
+            "foreign_transaction_fee": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "late_payment_fee": { "$ref": "../core/base.json#/definitions/Money" }
+          }
+        },
+        "apr": {
+          "type": "object",
+          "properties": {
+            "purchase_apr": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "intro_apr": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "intro_period_months": { "type": "integer" }
+          }
+        },
+        "estimated_annual_rewards": { "$ref": "../core/base.json#/definitions/Money" },
+        "approval_probability": { "$ref": "../core/base.json#/definitions/ApprovalProbability" },
+        "apply_url": { "type": "string", "format": "uri" }
+      },
+      "required": ["offer_id", "issuer", "card_name", "rewards", "fees", "apr", "apply_url"]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/payments.json",
+  "title": "Payment Processing Product Schema",
+  "description": "Schema for merchant services and payment processing requests and offers",
+  "definitions": {
+    "MerchantServicesRequest": {
+      "type": "object",
+      "properties": {
+        "monthly_processing_volume": {
+          "$ref": "../core/base.json#/definitions/Money"
+        },
+        "average_transaction_value": {
+          "$ref": "../core/base.json#/definitions/Money"
+        },
+        "payment_methods": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["in_person", "online", "mobile", "invoice"] }
+        },
+        "business_profile": {
+          "$ref": "../core/business.json"
+        }
+      },
+      "required": ["monthly_processing_volume", "business_profile"]
+    },
+    "MerchantServicesOffer": {
+      "type": "object",
+      "properties": {
+        "offer_id": { "type": "string" },
+        "provider": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "pricing": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string", "enum": ["interchange_plus", "flat_rate", "tiered"] },
+            "online_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "in_person_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "per_transaction_fee": { "$ref": "../core/base.json#/definitions/Money" },
+            "monthly_fee": { "$ref": "../core/base.json#/definitions/Money" }
+          }
+        },
+        "hardware": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "cost": { "$ref": "../core/base.json#/definitions/Money" }
+            }
+          }
+        },
+        "features": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "apply_url": { "type": "string", "format": "uri" }
+      },
+      "required": ["offer_id", "provider", "pricing"]
+    }
+  }
+}
