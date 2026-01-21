@@ -28,7 +28,7 @@ Search "SecureLend Financial Services" in the GPT store
 ### Programmatic Access
 For direct API access, use our SDK:
 ```bash
-npm install @securelend/mcp-client
+npm install @securelend/sdk
 ```
 See [SDK documentation](https://github.com/SecureLend/sdk) for usage.
 
@@ -103,9 +103,9 @@ Total interest: $6,011.20"
 
 ### Programmatic Usage
 ```typescript
-import { SecureLendMCP } from '@securelend/mcp-client';
+import { SecureLend } from '@securelend/sdk';
 
-const client = new SecureLendMCP();
+const client = new SecureLend();
 const loans = await client.compareBusinessLoans({
   loanAmount: 200000,
   purpose: 'equipment',

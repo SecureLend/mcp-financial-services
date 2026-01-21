@@ -14,9 +14,9 @@ Please refer to the SDK repository for installation instructions, documentation,
 ### Example (TypeScript)
 
 ```typescript
-import { SecureLendMCP } from '@securelend/mcp-client';
+import { SecureLend } from '@securelend/sdk';
 
-const client = new SecureLendMCP();
+const client = new SecureLend();
 const loans = await client.compareBusinessLoans({
   loanAmount: 200000,
   purpose: 'equipment',
