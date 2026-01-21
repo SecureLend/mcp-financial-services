@@ -11,7 +11,7 @@
 
 The majority of the comparison tools provided by this MCP server are read-only and do not require authentication.
 
-Tools that involve submitting applications or user data (`get_offer`, `submit_documents`, etc.) may require OAuth 2.0 or an API key in a production environment, which would be configured at the client level. For the public server (`mcp.dev.securelend.ai`), these tools operate in a sandboxed, read-only mode.
+Tools that involve submitting applications or user data (`get_offer`, `submit_documents`, etc.) may require OAuth 2.0 or an API key in a production environment, which would be configured at the client level. For the public server (`mcp.securelend.ai/mcp`), these tools operate in a sandboxed, read-only mode.
 
 ## Reporting a Vulnerability
 
@@ -22,6 +22,7 @@ Instead, please report them via email to security@securelend.ai.
 You should receive a response within 48 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
 
 Please include:
+
 - Type of issue (e.g. buffer overflow, SQL injection, cross-site scripting, etc.)
 - Full paths of source file(s) related to the issue
 - Location of the affected source code (tag/branch/commit or direct URL)
@@ -33,6 +34,7 @@ Please include:
 ## Disclosure Policy
 
 We follow coordinated disclosure:
+
 1. Report received and acknowledged
 2. Issue confirmed and assessed
 3. Fix developed and tested

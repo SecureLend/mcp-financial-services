@@ -149,7 +149,7 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for full API referenc
 │ MCP Protocol
 ▼
 ┌─────────────────────────────────────────────────────────┐
-│ mcp.dev.securelend.ai (This Repo) │
+│ mcp.securelend.ai/mcp (This Repo) │
 │ • 20 financial comparison tools │
 │ • JSON Schema validation │
 │ • Lender integration layer │
@@ -166,7 +166,7 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for full API referenc
 
 ## 🔒 Security & Compliance
 
-- **SOC 2 Type 2 Certified** - Completed Q4 2024
+- **SOC 2 Type 2 Certified** - Audit observation started Q4 2025
 - **No authentication required** - Comparison tools are read-only
 - **HTTPS encryption** - All data transmitted securely
 - **Privacy-first** - No storage of comparison data
@@ -238,7 +238,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## License
 
-MIT © 2025 SecureLend, Inc.
+MIT © 2026 SecureLend, Inc.
 
 ---
 

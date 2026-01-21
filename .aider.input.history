@@ -10469,3 +10469,15 @@
 
 # 2026-01-21 14:51:06.721133
 +good to deploy? 
+
+# 2026-01-21 15:00:21.893533
++/add CONTRIBUTING.md
+
+# 2026-01-21 15:00:41.883674
++please update CONTRIBUTING.md to match the current state and purpose of the repo 
+
+# 2026-01-21 15:03:42.838381
++/add CHANGELOG.md
+
+# 2026-01-21 15:03:48.323375
++also update CHANGELOG.md accordingly 
