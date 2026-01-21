@@ -33,58 +33,16 @@ Be respectful, inclusive, and professional. We're building infrastructure for th
 7. Push to your fork (`git push origin feature/amazing-feature`)
 8. Open a Pull Request
 
-## Development Setup
-```bash
-# Clone your fork
-git clone https://github.com/YOUR_USERNAME/mcp-financial-services.git
-cd mcp-financial-services
-
-# Add upstream remote
-git remote add upstream https://github.com/securelend/mcp-financial-services.git
-
-# Install dependencies
-npm install
-
-# Build packages
-npm run build
-
-# Run tests
-npm test
-
-# Start development mode
-npm run dev
-```
-
 ## Project Structure
 
-- `schemas/` - JSON schemas (modify carefully, breaking changes affect everyone)
-- `packages/core/` - Main SDK
-- `packages/react/` - React hooks
-- `integrations/` - Third-party integrations
-- `examples/` - Example applications
-- `docs/` - Documentation
-
-## Testing
-```bash
-# Run all tests
-npm test
-
-# Run specific package tests
-npm test -w @securelend/sdk
-
-# Run with coverage
-npm run test:coverage
-
-# Run in watch mode
-npm run test:watch
-```
+- `schemas/` - JSON schemas for all financial products. Changes here are considered breaking.
+- `examples/` - Example client configurations and conversations.
+- `docs/` - Integration guides and tool reference.
 
 ## Documentation
 
-- Update README.md for user-facing changes
-- Add JSDoc comments to public APIs
-- Update TypeScript types
-- Add examples for new features
+- Update `README.md` for user-facing changes.
+- Add or update examples for new features.
 
 ## Schema Changes
 
