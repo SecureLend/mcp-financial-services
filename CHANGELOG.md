@@ -9,17 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial release of MCP Financial Services
-- Core SDK (`@securelend/sdk`) v1.0.0
-- JSON schemas for loans, banking, credit cards
-- TypeScript type definitions
-- Business loan comparison
-- Business banking comparison
-- Business credit card comparison
-- React hooks package (`@securelend/react`)
-- Comprehensive documentation
-- Example applications
+- JSON schemas for personal loans, business loans, mortgages, auto loans, student loans, credit cards, and banking products.
+- Placeholder schemas for calculators.
+- Integration examples for Claude and ChatGPT.
+- Core schema definitions for base types and business profiles.
+- Comprehensive documentation and contribution guidelines.
 
-## [1.0.0] - 2025-01-XX (Release date TBD)
+## [1.0.0] - 2026-01-21
 
 ### Added
-- Initial public release
+- Initial public release of the MCP server and standardized schemas.
