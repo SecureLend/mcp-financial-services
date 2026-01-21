@@ -18,16 +18,9 @@ This repository provides:
 ## 🔌 Quick Connect
 
 ### Claude Desktop
-Add to your `claude_desktop_config.json`:
-```json
-{
-  "mcpServers": {
-    "securelend": {
-      "url": "https://mcp.dev.securelend.ai/mcp"
-    }
-  }
-}
-```
+1.  Go to [https://extensions.securelend.ai/](https://extensions.securelend.ai/)
+2.  Download the `securelend.mcpb` file.
+3.  In Claude Desktop, click "Install Extension" and select the downloaded file.
 
 ### ChatGPT
 Search "SecureLend Financial Services" in the GPT store

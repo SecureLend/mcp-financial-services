@@ -1,15 +1,7 @@
 # Claude Desktop Setup
 
-To connect Claude Desktop to the SecureLend MCP server, add the following configuration to your `claude_desktop_config.json` file:
+1.  Go to [https://extensions.securelend.ai/](https://extensions.securelend.ai/).
+2.  Download the `securelend.mcpb` file.
+3.  In the Claude Desktop application, click "Install Extension" and select the downloaded `.mcpb` file.
 
-```json
-{
-  "mcpServers": {
-    "securelend": {
-      "url": "https://mcp.dev.securelend.ai/mcp"
-    }
-  }
-}
-```
-
-Once configured, you can start using the SecureLend tools in your conversations with Claude.
+Once installed, you can start using the SecureLend tools in your conversations with Claude.
