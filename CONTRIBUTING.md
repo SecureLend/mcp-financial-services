@@ -4,7 +4,7 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 ## Code of Conduct
 
-Be respectful, inclusive, and professional. We're building infrastructure for the financial services industry.
+Be respectful, inclusive, and professional. We're building infrastructure for the financial services industry. For SDK contributions, please see the [SDK repository](https://github.com/SecureLend/sdk).
 
 ## How to Contribute
 
