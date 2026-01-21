@@ -7,6 +7,12 @@
 | 1.x.x   | :white_check_mark: |
 | < 1.0   | :x:                |
 
+## Authentication
+
+The majority of the comparison tools provided by this MCP server are read-only and do not require authentication.
+
+Tools that involve submitting applications or user data (`get_offer`, `submit_documents`, etc.) may require OAuth 2.0 or an API key in a production environment, which would be configured at the client level. For the public server (`mcp.dev.securelend.ai`), these tools operate in a sandboxed, read-only mode.
+
 ## Reporting a Vulnerability
 
 **Please do not report security vulnerabilities through public GitHub issues.**
