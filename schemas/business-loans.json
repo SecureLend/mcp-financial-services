@@ -9,7 +9,7 @@
       "type": "object",
       "properties": {
         "amount": {
-          "$ref": "core/base.json#/definitions/Money",
+          "$ref": "../core/base.json#/definitions/Money",
           "description": "Requested loan amount"
         },
 
@@ -71,7 +71,7 @@
               ]
             },
             "estimated_value": {
-              "$ref": "core/base.json#/definitions/Money"
+              "$ref": "../core/base.json#/definitions/Money"
             },
             "lien_position": {
               "type": "string",
@@ -87,7 +87,7 @@
         },
 
         "business_profile": {
-          "$ref": "core/business.json"
+          "$ref": "../core/business.json"
         }
       },
 
@@ -103,7 +103,7 @@
         },
 
         "lender": {
-          "$ref": "core/base.json#/definitions/FinancialInstitution"
+          "$ref": "../core/base.json#/definitions/FinancialInstitution"
         },
 
         "product": {
@@ -139,7 +139,7 @@
           "type": "object",
           "properties": {
             "amount": {
-              "$ref": "core/base.json#/definitions/Money"
+              "$ref": "../core/base.json#/definitions/Money"
             },
 
             "interest_rate": {
@@ -150,11 +150,11 @@
                   "enum": ["fixed", "variable"]
                 },
                 "rate": {
-                  "$ref": "core/base.json#/definitions/Percentage",
+                  "$ref": "../core/base.json#/definitions/Percentage",
                   "description": "Annual percentage rate"
                 },
                 "apr": {
-                  "$ref": "core/base.json#/definitions/Percentage",
+                  "$ref": "../core/base.json#/definitions/Percentage",
                   "description": "Annual percentage rate including fees"
                 },
                 "index": {
@@ -162,7 +162,7 @@
                   "description": "Index for variable rates (e.g., 'Prime', 'SOFR')"
                 },
                 "margin": {
-                  "$ref": "core/base.json#/definitions/BasisPoints",
+                  "$ref": "../core/base.json#/definitions/BasisPoints",
                   "description": "Margin over index for variable rates"
                 }
               },
@@ -189,17 +189,17 @@
                   ]
                 },
                 "amount": {
-                  "$ref": "core/base.json#/definitions/Money",
+                  "$ref": "../core/base.json#/definitions/Money",
                   "description": "Regular payment amount"
                 },
                 "first_payment_date": {
-                  "$ref": "core/base.json#/definitions/DateString"
+                  "$ref": "../core/base.json#/definitions/DateString"
                 }
               }
             },
 
             "total_cost": {
-              "$ref": "core/base.json#/definitions/Money",
+              "$ref": "../core/base.json#/definitions/Money",
               "description": "Total amount to be repaid (principal + interest)"
             }
           },
@@ -213,18 +213,18 @@
               "type": "object",
               "properties": {
                 "amount": {
-                  "$ref": "core/base.json#/definitions/Money"
+                  "$ref": "../core/base.json#/definitions/Money"
                 },
                 "percentage": {
-                  "$ref": "core/base.json#/definitions/Percentage"
+                  "$ref": "../core/base.json#/definitions/Percentage"
                 }
               }
             },
             "processing": {
-              "$ref": "core/base.json#/definitions/Money"
+              "$ref": "../core/base.json#/definitions/Money"
             },
             "underwriting": {
-              "$ref": "core/base.json#/definitions/Money"
+              "$ref": "../core/base.json#/definitions/Money"
             },
             "prepayment_penalty": {
               "type": "object",
@@ -237,10 +237,10 @@
               "type": "object",
               "properties": {
                 "amount": {
-                  "$ref": "core/base.json#/definitions/Money"
+                  "$ref": "../core/base.json#/definitions/Money"
                 },
                 "percentage": {
-                  "$ref": "core/base.json#/definitions/Percentage"
+                  "$ref": "../core/base.json#/definitions/Percentage"
                 }
               }
             }
@@ -260,7 +260,7 @@
               "minimum": 0
             },
             "min_annual_revenue": {
-              "$ref": "core/base.json#/definitions/Money"
+              "$ref": "../core/base.json#/definitions/Money"
             },
             "collateral_required": {
               "type": "boolean"
@@ -292,7 +292,7 @@
           "type": "object",
           "properties": {
             "approval_probability": {
-              "$ref": "core/base.json#/definitions/ApprovalProbability"
+              "$ref": "../core/base.json#/definitions/ApprovalProbability"
             },
             "match_score": {
               "type": "number",
@@ -340,7 +340,7 @@
               }
             },
             "funding_speed": {
-              "$ref": "core/base.json#/definitions/FundingSpeed"
+              "$ref": "../core/base.json#/definitions/FundingSpeed"
             }
           }
         },
