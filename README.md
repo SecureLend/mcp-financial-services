@@ -6,8 +6,9 @@
 [![MCP Server](https://img.shields.io/badge/MCP-Server-blue.svg)](https://modelcontextprotocol.io)
 
 This repository provides:
+
 - 📋 **Standardized JSON schemas** for loans, banking, credit cards
-- 🔌 **MCP server** at `mcp.dev.securelend.ai` for Claude and ChatGPT
+- 🔌 **MCP server** at `https://mcp.securelend.ai/mcp` for Claude and ChatGPT
 - 📚 **Integration documentation** and examples
 - 🛠️ **20+ tools** for financial product comparison
 
@@ -18,18 +19,23 @@ This repository provides:
 ## 🔌 Quick Connect
 
 ### Claude Desktop
+
 1.  Go to [https://extensions.securelend.ai/](https://extensions.securelend.ai/)
 2.  Download the `securelend.mcpb` file.
 3.  In Claude Desktop, click "Install Extension" and select the downloaded file.
 
 ### ChatGPT
+
 Search "SecureLend Financial Services" in the GPT store
 
 ### Programmatic Access
+
 For direct API access, use our SDK:
+
 ```bash
 npm install @securelend/sdk
 ```
+
 See [SDK documentation](https://github.com/SecureLend/sdk) for usage.
 
 ---
@@ -37,28 +43,33 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for usage.
 ## 🛠️ Available Tools (20)
 
 ### Loan Comparison
+
 - **compare_personal_loans** - Compare personal loan offers
-- **compare_business_loans** - Compare business loan offers  
+- **compare_business_loans** - Compare business loan offers
 - **compare_car_loans** - Compare auto loan rates
 - **compare_student_loans** - Compare student loan options
 - **compare_personal_mortgages** - Compare mortgage rates
 - **compare_business_mortgages** - Compare commercial mortgages
 
 ### Banking Products
+
 - **compare_personal_banking** - Compare checking/savings accounts
 - **compare_business_banking** - Compare business banking products
 - **compare_savings_accounts** - Compare high-yield savings rates
 
 ### Credit Cards
+
 - **compare_personal_credit_cards** - Compare personal credit cards
 - **compare_business_credit_cards** - Compare business credit cards
 
 ### Calculators
+
 - **calculate_loan_payment** - Calculate monthly loan payments
 - **calculate_mortgage_payment** - Calculate PITI mortgage payments
 - **compare_lease_vs_purchase** - Compare leasing vs buying vehicles
 
 ### Application Management
+
 - **get_offer** - Submit application to selected lender
 - **get_multiple_offers** - Submit to multiple lenders
 - **track_offer_status** - Check application status
@@ -87,29 +98,30 @@ See [schemas/README.md](./schemas/README.md) for detailed documentation.
 ## 🎯 Example Usage
 
 ### In Claude
+
 User: "Compare business loans for $200k. My business has $1.2M revenue,
 720 credit score, been in business 3 years. Need it for equipment."
 Claude: [Uses compare_business_loans tool]
-"Found 5 competitive offers for your $200k equipment loan:
-    1. ABC Business Capital - 7.5% APR, $3,200/month
-    2. SmallBiz Lending - 8.2% APR, $3,350/month
-    ..."
+"Found 5 competitive offers for your $200k equipment loan: 1. ABC Business Capital - 7.5% APR, $3,200/month 2. SmallBiz Lending - 8.2% APR, $3,350/month
+..."
 
 ### In ChatGPT
+
 User: "What's my monthly payment on a $35k car loan at 6.5% for 60 months?"
 ChatGPT: [Uses calculate_loan_payment tool]
 "Monthly payment: $683.52
 Total interest: $6,011.20"
 
 ### Programmatic Usage
+
 ```typescript
-import { SecureLend } from '@securelend/sdk';
+import { SecureLend } from "@securelend/sdk";
 
 const client = new SecureLend();
 const loans = await client.compareBusinessLoans({
   loanAmount: 200000,
-  purpose: 'equipment',
-  annualRevenue: 1200000
+  purpose: "equipment",
+  annualRevenue: 1200000,
 });
 ```
 
@@ -128,25 +140,26 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for full API referenc
 ---
 
 ## 🏗️ Architecture
+
 ┌─────────────────────────────────────────────────────────┐
-│                   MCP Clients                           │
-│  (Claude Desktop, ChatGPT, Custom Apps via SDK)         │
+│ MCP Clients │
+│ (Claude Desktop, ChatGPT, Custom Apps via SDK) │
 └─────────────────────────────────────────────────────────┘
 │
 │ MCP Protocol
 ▼
 ┌─────────────────────────────────────────────────────────┐
-│            mcp.dev.securelend.ai (This Repo)            │
-│  • 20 financial comparison tools                        │
-│  • JSON Schema validation                               │
-│  • Lender integration layer                             │
+│ mcp.dev.securelend.ai (This Repo) │
+│ • 20 financial comparison tools │
+│ • JSON Schema validation │
+│ • Lender integration layer │
 └─────────────────────────────────────────────────────────┘
 │
 │ REST APIs
 ▼
 ┌─────────────────────────────────────────────────────────┐
-│              Financial Service Providers                 │
-│  (Banks, Lenders, Credit Card Issuers)                  │
+│ Financial Service Providers │
+│ (Banks, Lenders, Credit Card Issuers) │
 └─────────────────────────────────────────────────────────┘
 
 ---
@@ -163,6 +176,7 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for full API referenc
 ## 🤝 Contributing
 
 We welcome contributions to:
+
 - Improve JSON schemas
 - Add new financial product types
 - Enhance documentation
@@ -193,6 +207,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 ## 🗺️ Roadmap
 
 ### Q1 2025 ✅
+
 - ✅ 20 financial comparison tools
 - ✅ Claude Desktop integration
 - ✅ ChatGPT integration
@@ -200,12 +215,14 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 - ✅ SOC 2 Type 2 certification
 
 ### Q2 2025
+
 - 🔄 Python SDK (GA)
 - 🔄 Canadian market launch
 - 🔄 Insurance products
 - 🔄 React SDK components
 
 ### Q3 2025
+
 - 🔄 UK/Australia launch
 - 🔄 Ruby/Go SDKs
 - 🔄 Investment products
