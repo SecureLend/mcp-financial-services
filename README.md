@@ -8,7 +8,7 @@
 This repository provides:
 
 - 📋 **Standardized JSON schemas** for loans, banking, credit cards
-- 🔌 **MCP server** at `mcp.dev.securelend.ai` for Claude and ChatGPT
+- 🔌 **MCP server** at `https://mcp.securelend.ai/mcp` for Claude and ChatGPT
 - 📚 **Integration documentation** and examples
 - 🛠️ **20+ tools** for financial product comparison
 
@@ -33,7 +33,7 @@ Search "SecureLend Financial Services" in the GPT store
 For direct API access, use our SDK:
 
 ```bash
-npm install @securelend/sdk
+pnpm install @securelend/sdk
 ```
 
 See [SDK documentation](https://github.com/SecureLend/sdk) for usage.

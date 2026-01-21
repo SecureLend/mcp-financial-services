@@ -7754,3 +7754,2718 @@
 
 # 2026-01-06 23:09:59.849334
 +n
+
+# 2026-01-21 11:24:33.887655
++/add .gitignore
+
+# 2026-01-21 11:24:52.472404
++/add README.md
+
+# 2026-01-21 11:25:11.199185
++/add schemas/products/banking/business-banking.json
+
+# 2026-01-21 11:25:16.812977
++/add schemas/products/loans/business-loans.json
+
+# 2026-01-21 11:25:23.757772
++/add schemas/tools/comparison-tools.json
+
+# 2026-01-21 11:25:32.488105
++/add schemas/banking.json
++schemas/credit-cards.json
++schemas/insurance.json
++schemas/loans.json
++schemas/payments.json
+
+# 2026-01-21 11:25:48.042171
++/add docs/api-reference.md
+
+# 2026-01-21 11:25:53.997564
++/add docs/getting-started.md
+
+# 2026-01-21 11:26:06.530516
++/add types/typescript/index.ts
+
+# 2026-01-21 11:27:05.836420
++Updated GitHub Repository Strategy - With SDK Separation
++Repository Structure Clarification
++You have two separate repositories:
++
++SecureLend/mcp-financial-services - MCP Server + Schemas + Documentation
++SecureLend/sdk - Client SDK (TypeScript, React, Python) - WIP
++
++This is actually a good architecture! Here's how to position each:
++
++Repository #1: mcp-financial-services (For Claude Directory)
++Current Purpose (Confused)
++Claims to be: "Open-source MCP server and SDK for financial services comparison"
++New Purpose (Clear)
++"Standardized schemas and MCP server for financial services comparison"
++What It Should Contain
++
++JSON Schemas - OpenAPI/JSON Schema definitions for all financial products
++MCP Server Documentation - How to connect to mcp.dev.securelend.ai
++Integration Examples - Claude Desktop, ChatGPT setup guides
++Tool Reference - Documentation for all 20 tools
++Reference Link to SDK - Point to github.com/SecureLend/sdk for client libraries
++
++What It Should NOT Contain
++
++❌ SDK implementation code (that's in the other repo)
++❌ Package installation instructions for npm (that's in the SDK repo)
++❌ Client library usage examples (that's in the SDK repo)
++
++
++Repository #2: sdk (Developer-focused)
++Purpose
++"Official client libraries for SecureLend MCP server"
++What It Contains
++
++✅ @securelend/mcp-client - TypeScript SDK
++✅ @securelend/react - React hooks
++🔄 Python SDK (coming)
++🔄 Ruby SDK (coming)
++
++What's Working
++
++Has actual code in packages/core/
++Has package.json configuration
++Has TypeScript build setup
++Has proper MIT license
++
++
++Revised Strategy for mcp-financial-services Repo
++Update README.md
++markdown# SecureLend Financial Services - MCP Server
++
++> **Production MCP server and standardized schemas for financial services comparison**
++
++[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
++[![MCP Server](https://img.shields.io/badge/MCP-Server-blue.svg)](https://modelcontextprotocol.io)
++
++This repository provides:
++- 📋 **Standardized JSON schemas** for loans, banking, credit cards
++- 🔌 **MCP server** at `mcp.dev.securelend.ai` for Claude and ChatGPT
++- 📚 **Integration documentation** and examples
++- 🛠️ **20+ tools** for financial product comparison
++
++**Looking for client libraries?** See [`@securelend/sdk`](https://github.com/SecureLend/sdk)
++
++---
++
++## 🔌 Quick Connect
++
++### Claude Desktop
++Add to your `claude_desktop_config.json`:
++```json
++{
++  "mcpServers": {
++    "securelend": {
++      "url": "https://mcp.dev.securelend.ai/mcp"
++    }
++  }
++}
++```
++
++### ChatGPT
++Search "SecureLend Financial Services" in the GPT store
++
++### Programmatic Access
++For direct API access, use our SDK:
++```bash
++npm install @securelend/mcp-client
++```
++See [SDK documentation](https://github.com/SecureLend/sdk) for usage.
++
++---
++
++## 🛠️ Available Tools (20)
++
++### Loan Comparison
++- **compare_personal_loans** - Compare personal loan offers
++- **compare_business_loans** - Compare business loan offers  
++- **compare_car_loans** - Compare auto loan rates
++- **compare_student_loans** - Compare student loan options
++- **compare_personal_mortgages** - Compare mortgage rates
++- **compare_business_mortgages** - Compare commercial mortgages
++
++### Banking Products
++- **compare_personal_banking** - Compare checking/savings accounts
++- **compare_business_banking** - Compare business banking products
++- **compare_savings_accounts** - Compare high-yield savings rates
++
++### Credit Cards
++- **compare_personal_credit_cards** - Compare personal credit cards
++- **compare_business_credit_cards** - Compare business credit cards
++
++### Calculators
++- **calculate_loan_payment** - Calculate monthly loan payments
++- **calculate_mortgage_payment** - Calculate PITI mortgage payments
++- **compare_lease_vs_purchase** - Compare leasing vs buying vehicles
++
++### Application Management
++- **get_offer** - Submit application to selected lender
++- **get_multiple_offers** - Submit to multiple lenders
++- **track_offer_status** - Check application status
++- **display_offer_form** - Generate pre-filled forms
++- **display_upload_documents_form** - Upload required documents
++- **submit_documents** - Submit application documents
++
++---
++
++## 📋 JSON Schemas
++
++This repository contains standardized schemas for financial products:
++
++- **[Personal Loans](./schemas/personal-loans.json)** - Debt consolidation, home improvement
++- **[Business Loans](./schemas/business-loans.json)** - Term loans, lines of credit, SBA
++- **[Mortgages](./schemas/mortgages.json)** - Conventional, FHA, VA, jumbo
++- **[Auto Loans](./schemas/auto-loans.json)** - New and used vehicle financing
++- **[Student Loans](./schemas/student-loans.json)** - Undergraduate, graduate, refinancing
++- **[Credit Cards](./schemas/credit-cards.json)** - Personal and business cards
++- **[Banking Products](./schemas/banking.json)** - Checking, savings accounts
++
++See [schemas/README.md](./schemas/README.md) for detailed documentation.
++
++---
++
++## 🎯 Example Usage
++
++### In Claude
++User: "Compare business loans for $200k. My business has $1.2M revenue,
++720 credit score, been in business 3 years. Need it for equipment."
++Claude: [Uses compare_business_loans tool]
++"Found 5 competitive offers for your $200k equipment loan:
++    1. ABC Business Capital - 7.5% APR, $3,200/month
++    2. SmallBiz Lending - 8.2% APR, $3,350/month
++    ..."
++
++### In ChatGPT
++User: "What's my monthly payment on a $35k car loan at 6.5% for 60 months?"
++ChatGPT: [Uses calculate_loan_payment tool]
++"Monthly payment: $683.52
++Total interest: $6,011.20"
++
++### Programmatic Usage
++```typescript
++import { SecureLendMCP } from '@securelend/mcp-client';
++
++const client = new SecureLendMCP();
++const loans = await client.compareBusinessLoans({
++  loanAmount: 200000,
++  purpose: 'equipment',
++  annualRevenue: 1200000
++});
++```
++
++See [SDK documentation](https://github.com/SecureLend/sdk) for full API reference.
++
++---
++
++## 📖 Documentation
++
++- **[Complete MCP Documentation](https://docs.securelend.ai/mcp/overview)**
++- **[Tool Reference](https://docs.securelend.ai/mcp/tools)**
++- **[SDK Documentation](https://github.com/SecureLend/sdk)** - For programmatic access
++- **[Example Conversations](./examples/)** - Sample MCP interactions
++- **[Integration Guides](./docs/)** - Claude Desktop, ChatGPT setup
++
++---
++
++## 🏗️ Architecture
++┌─────────────────────────────────────────────────────────┐
++│                   MCP Clients                           │
++│  (Claude Desktop, ChatGPT, Custom Apps via SDK)         │
++└─────────────────────────────────────────────────────────┘
++│
++│ MCP Protocol
++▼
++┌─────────────────────────────────────────────────────────┐
++│            mcp.dev.securelend.ai (This Repo)            │
++│  • 20 financial comparison tools                        │
++│  • JSON Schema validation                               │
++│  • Lender integration layer                             │
++└─────────────────────────────────────────────────────────┘
++│
++│ REST APIs
++▼
++┌─────────────────────────────────────────────────────────┐
++│              Financial Service Providers                 │
++│  (Banks, Lenders, Credit Card Issuers)                  │
++└─────────────────────────────────────────────────────────┘
++
++---
++
++## 🔒 Security & Compliance
++
++- **SOC 2 Type 2 Certified** - Completed Q4 2024
++- **No authentication required** - Comparison tools are read-only
++- **HTTPS encryption** - All data transmitted securely
++- **Privacy-first** - No storage of comparison data
++
++---
++
++## 🤝 Contributing
++
++We welcome contributions to:
++- Improve JSON schemas
++- Add new financial product types
++- Enhance documentation
++- Report issues
++
++See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
++
++**For SDK contributions**, see the [SDK repository](https://github.com/SecureLend/sdk).
++
++---
++
++## 📧 Support
++
++- **MCP Documentation:** https://docs.securelend.ai/mcp
++- **SDK Documentation:** https://github.com/SecureLend/sdk
++- **Email:** developers@securelend.ai
++- **Issues:** GitHub Issues (this repo for MCP, SDK repo for client libraries)
++
++---
++
++## 📜 Legal
++
++- **[Terms of Service](https://securelend.ai/legal/terms)**
++- **[Privacy Policy](https://securelend.ai/legal/privacy)**
++
++---
++
++## 🗺️ Roadmap
++
++### Q1 2025 ✅
++- ✅ 20 financial comparison tools
++- ✅ Claude Desktop integration
++- ✅ ChatGPT integration
++- ✅ TypeScript SDK (beta)
++- ✅ SOC 2 Type 2 certification
++
++### Q2 2025
++- 🔄 Python SDK (GA)
++- 🔄 Canadian market launch
++- 🔄 Insurance products
++- 🔄 React SDK components
++
++### Q3 2025
++- 🔄 UK/Australia launch
++- 🔄 Ruby/Go SDKs
++- 🔄 Investment products
++
++---
++
++## 🔗 Related Projects
++
++- **[SecureLend SDK](https://github.com/SecureLend/sdk)** - Client libraries for programmatic access
++- **[MCP Protocol](https://modelcontextprotocol.io)** - Model Context Protocol specification
++
++---
++
++## License
++
++MIT © 2025 SecureLend, Inc.
++
++---
++
++**Built by [SecureLend](https://securelend.ai)** | [MCP Docs](https://docs.securelend.ai/mcp) | [SDK Docs](https://github.com/SecureLend/sdk) | [Privacy](https://securelend.ai/legal/privacy)
++
++Key Changes from Original
++What We Fixed
++
++Clarified Repository Purpose
++
++OLD: "Open-source MCP server and SDK"
++NEW: "Standardized schemas and MCP server" + link to SDK repo
++
++
++Separated Concerns
++
++MCP server docs → THIS repo
++Client SDK code → SDK repo
++Clear cross-references between them
++
++
++Set Correct Expectations
++
++No false promises about SDK in this repo
++Clear architecture diagram
++Proper links to SDK repo for programmatic usage
++
++
++Added Missing Content
++
++Will add JSON schemas
++Will add integration examples
++Will add example conversations
++
++
++
++
++Files to Add to mcp-financial-services Repo
++1. schemas/ Directory
++schemas/
++├── README.md
++├── personal-loans.json
++├── business-loans.json
++├── mortgages.json
++├── auto-loans.json
++├── student-loans.json
++├── credit-cards.json
++├── banking.json
++└── calculators.json
++2. examples/ Directory
++examples/
++├── README.md
++├── claude-desktop/
++│   ├── config.json
++│   └── example-conversations.md
++├── chatgpt/
++│   └── setup-guide.md
++└── sdk-usage/
++    └── README.md (links to SDK repo)
++3. docs/ Directory
++docs/
++├── README.md (links to docs.securelend.ai)
++├── claude-setup.md
++├── chatgpt-setup.md
++└── tool-reference.md
++
++Updated Submission Checklist
++For Claude Directory (mcp-financial-services repo)
++
++ Update README with clarified purpose (schemas + MCP server)
++ Add all JSON schemas in schemas/ directory
++ Add Claude Desktop setup example
++ Add ChatGPT setup example
++ Add example conversations
++ Link to SDK repo for programmatic usage
++ Update SECURITY.md (no auth required for read-only tools)
++ Verify all docs links point to docs.securelend.ai
++
++CORS Configuration
++Add to your MCP server:
++typescriptapp.use((req, res, next) => {
++  res.setHeader('Access-Control-Allow-Origin', 'https://claude.ai');
++  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
++  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
++  res.setHeader('Access-Control-Allow-Credentials', 'true');
++  
++  if (req.method === 'OPTIONS') {
++    return res.status(200).end();
++  }
++  next();
++});
++
++SDK Repository Status
++What's Good ✅
++
++Separate repository (good separation of concerns)
++Has actual code in packages/core/
++Has proper package.json structure
++TypeScript setup configured
++MIT licensed
++
++What Needs Attention ⚠️
++
++Appears to be work in progress
++May not be published to npm yet
++Should clarify "beta" or "alpha" status
++
++Recommendation for SDK Repo
++
++Add a "Status: Beta" badge to README
++Clarify when it will be published to npm
++Add installation instructions once published
++
++
++Timeline to Submission-Ready
++mcp-financial-services Repo Updates
++Estimated Time: 3-4 hours
++
++Update README.md (1 hour)
++Create JSON schemas (1.5 hours)
++Add examples directory (1 hour)
++Update other docs (30 min)
++
++Infrastructure
++Estimated Time: 30 minutes
++
++Verify CORS configuration for https://claude.ai
++Test MCP server accessibility
++Verify docs.securelend.ai is up-to-date
++
++Total: ~4-5 hours to submission-ready
++
++Claude Directory Form Answers
++Based on this clarified structure:
++Pre-Submission Requirements:
++
++✅ OAuth 2.0: Not required (read-only comparison tools)
++✅ Safety annotations: Included in schema definitions
++✅ HTTPS: Yes, at mcp.dev.securelend.ai
++✅ CORS: Configure for https://claude.ai
++✅ IP allowlist: Not applicable (public server)
++
++Documentation:
++
++✅ Server docs: docs.securelend.ai/mcp/overview
++✅ Privacy policy: securelend.ai/legal/privacy
++✅ Terms of service: securelend.ai/legal/terms
++
++Testing:
++
++✅ Test account: Not needed (read-only tools)
++✅ Tools tested: Yes, functional in Claude Desktop and ChatGPT
++
++
++Final Recommendation
++You're in much better shape than I initially thought! The SDK separation is smart.
++Action Items:
++
++Update mcp-financial-services README - Clarify it's schemas + MCP server docs
++Add JSON schemas to the repo
++Add integration examples (Claude Desktop, ChatGPT)
++Configure CORS for https://claude.ai
++Submit to Claude directory
++
++The SDK repo can continue development independently. Once it's ready, you can publish to npm and update the MCP repo to reference the published packages.
++You can submit within 1 business day with focused effort on the MCP repo updates.
++Would you like me to generate the actual JSON schema files now? here the actual server: import { McpServer } from "skybridge/server";
++import { InitializeRequestSchema } from "@modelcontextprotocol/sdk/types.js";
++import { z } from "zod";
++import type { ServerContext } from "@smithery/sdk";
++import type { ToolContext } from "./skybridge/index.js";
++import { v4 as uuidv4 } from "uuid";
++import { createLogger } from "./utils/logger.js";
++// Renamed to avoid collision with Smithery config
++import { config as envConfig } from "./config/environment.js";
++
++// --- TOOLS IMPORTS ---
++import { PersonalLoanSearchTool } from "./tools/compare_personal_loans.js";
++import { BusinessLoanSearchTool } from "./tools/compare_business_loans.js";
++import { PersonalMortgageSearchTool } from "./tools/compare_personal_mortgages.js";
++import { BusinessMortgageSearchTool } from "./tools/compare_business_mortgages.js";
++import { LoanPaymentCalculatorTool } from "./tools/calculate_loan_payment.js";
++import { MortgageCalculatorTool } from "./tools/calculate_mortgage_payment.js";
++import { LeaseVsPurchaseCalculatorTool } from "./tools/compare_lease_vs_purchase.js";
++import { BusinessCreditCardSearchTool } from "./tools/compare_business_credit_cards.js";
++import { CarLoanSearchTool } from "./tools/compare_car_loans.js";
++import { StudentLoanSearchTool } from "./tools/compare_student_loans.js";
++import { BusinessBankingSearchTool } from "./tools/compare_business_banking.js";
++import { PersonalBankingSearchTool } from "./tools/compare_personal_banking.js";
++import { SavingsAccountSearchTool } from "./tools/compare_savings_accounts.js";
++import { PersonalCreditCardSearchTool } from "./tools/compare_personal_credit_cards.js";
++import { GetOfferTool } from "./tools/get_offer.js";
++import { GetMultipleOffersTool } from "./tools/get_multiple_offers.js";
++import { DisplayOfferFormTool } from "./tools/display_offer_form.js";
++import { TrackOfferStatusTool } from "./tools/track_offer_status.js";
++import { DisplayUploadDocumentsFormTool } from "./tools/display_upload_documents_form.js";
++import { SubmitDocumentsTool } from "./tools/submit_documents.js";
++
++// --- TYPES IMPORTS ---
++import {
++  personalLoanSearchSchema,
++  loanComparisonResponseSchema,
++  businessLoanSearchSchema,
++  mortgageSearchSchema,
++  loanPaymentSchema,
++  loanPaymentResponseSchema,
++  mortgagePaymentSchema,
++  mortgagePaymentResponseSchema,
++  leaseVsPurchaseSchema,
++  leaseVsPurchaseResponseSchema,
++  businessCreditCardSearchSchema,
++  businessCreditCardComparisonResponseSchema,
++  autoLoanSearchSchema,
++  studentLoanSearchSchema,
++  businessBankingSearchSchema,
++  businessBankingComparisonResponseSchema,
++  personalBankingSearchSchema,
++  personalBankingComparisonResponseSchema,
++  savingsSearchSchema,
++  savingsComparisonResponseSchema,
++  personalCreditCardSearchSchema,
++  personalCreditCardComparisonResponseSchema,
++  getOfferSchema,
++  getMultipleOffersSchema,
++  personalApplicationSchema,
++  displayOfferFormSchema,
++  displayOfferFormResponseSchema,
++  trackOfferStatusSchema,
++  trackOfferStatusResponseSchema,
++  displayUploadDocumentsFormSchema,
++  displayUploadDocumentsFormResponseSchema,
++  submitDocumentsSchema,
++  submitDocumentsResponseSchema,
++} from "./types.js";
++import type {
++  PersonalLoanSearchParams,
++  BusinessLoanSearchParams,
++  MortgageSearchParams,
++  LoanPaymentParams,
++  MortgagePaymentParams,
++  LeaseVsPurchaseParams,
++  BusinessCreditCardSearchParams,
++  AutoLoanSearchParams,
++  StudentLoanSearchParams,
++  BusinessBankingSearchSchema,
++  PersonalBankingSearchSchema,
++  SavingsSearchSchema,
++  PersonalCreditCardSearchSchema,
++  GetOfferParams,
++  GetMultipleOffersParams,
++  DisplayOfferFormParams,
++  TrackOfferStatusParams,
++  DisplayUploadDocumentsFormParams,
++  SubmitDocumentsParams,
++} from "./types.js";
++
++// --- CONFIGURATION SCHEMA (Moved to Top for Detection) ---
++
++export const configSchema = z.object({
++  environment: z
++    .string()
++    .default("production")
++    .describe("API environment to use (production or staging)"),
++
++  maxResults: z
++    .number()
++    .min(1)
++    .max(50)
++    .default(10)
++    .describe("Maximum number of loan offers to return per search"),
++
++  defaultCreditScore: z
++    .number()
++    .min(300)
++    .max(850)
++    .default(720)
++    .describe("Default credit score when not specified by user"),
++
++  includeReviewStatus: z
++    .boolean()
++    .default(false)
++    .describe("Include lenders with REVIEW status in results"),
++
++  apiKey: z
++    .string()
++    .optional()
++    .describe("Optional API key for authenticated requests")
++    .meta({ "x-from": { header: "x-api-key" } }),
++});
++
++export type ServerConfig = z.infer<typeof configSchema>;
++
++// --- SERVER LOGIC ---
++
++// Allow overriding config for Smithery injection
++export const createMcpServer = (configOverride?: Partial<ServerConfig>) => {
++  const logger = createLogger("McpServerConfig");
++
++  // Merge environment config with overrides (Smithery config takes precedence)
++  const currentConfig = {
++    environment:
++      configOverride?.environment || envConfig.environment || "production",
++    maxResults: configOverride?.maxResults ?? 10,
++    defaultCreditScore: configOverride?.defaultCreditScore ?? 720,
++    includeReviewStatus: configOverride?.includeReviewStatus ?? false,
++    apiKey: configOverride?.apiKey,
++  };
++
++  const bucket = envConfig.aws.s3.mcpDocumentsBucket;
++  const region = envConfig.aws.region;
++
++  const s3ConnectDomains =
++    bucket && region
++      ? [
++          `https://${bucket}.s3.${region}.amazonaws.com`,
++          `https://s3.${region}.amazonaws.com`,
++        ]
++      : [];
++
++  logger.info("s3ConnectDomains for CSP", { domains: s3ConnectDomains });
++  logger.info("Configuration loaded for server", {
++    environment: currentConfig.environment,
++    region: envConfig.aws.region,
++    documentsBucket: envConfig.aws.s3.mcpDocumentsBucket,
++  });
++
++  const server = new McpServer({
++    name: "securelend-mcp-financial-services",
++    title: "SecureLend Financial Services",
++    version: "1.0.0",
++    description:
++      "AI-powered financial services marketplace connecting borrowers with 200+ lenders. Compare loans, mortgages, credit cards, and banking products with instant quotes and application tracking.",
++    websiteUrl: "https://securelend.ai",
++    icons: [{ src: "https://securelend.ai/logo.png" }],
++  } as any);
++
++  server.registerWidget(
++    "compare_personal_loans",
++    {
++      description: "Compare personal loan offers from multiple lenders.",
++    },
++    {
++      description:
++        "Find and compare personal loans based on user criteria like amount, purpose, and credit score.",
++      inputSchema: personalLoanSearchSchema.shape,
++      // The output schema will be validated against `structuredContent`
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Personal Loans",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    async (params: PersonalLoanSearchParams, context: ToolContext) => {
++      // Use configOverride/currentConfig here effectively
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new PersonalLoanSearchTool();
++      const toolParams = {
++        ...params,
++        // Fallback chain: Params -> User Request Config -> Server Config
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} personal loan offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${
++                    o.terms.termMonths
++                  } months. Est. monthly payment: $${o.terms.payment?.amount.amount.toLocaleString()}`,
++              )
++              .join("\n")}`
++          : "No personal loan offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [
++          {
++            type: "text",
++            text: textSummary,
++          },
++        ],
++        isError: false,
++      };
++    },
++  );
++
++  server.registerWidget(
++    "compare_business_loans",
++    {
++      description: "Compare business loan offers from various lenders.",
++    },
++    {
++      description:
++        "Find and compare business loans based on criteria like amount, industry, and revenue.",
++      inputSchema: businessLoanSearchSchema.shape,
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Business Loans",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    async (params: BusinessLoanSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new BusinessLoanSearchTool();
++      const toolParams = {
++        ...params,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} business loan offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${
++                    o.terms.termMonths
++                  } months. Est. monthly payment: $${o.terms.payment?.amount.amount.toLocaleString()}`,
++              )
++              .join("\n")}`
++          : "No business loan offers found matching your criteria.";
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    },
++  );
++
++  server.registerWidget(
++    "compare_personal_mortgages",
++    {
++      description: "Compare personal mortgage offers from multiple lenders.",
++    },
++    {
++      description:
++        "Find and compare personal mortgages based on user criteria like property value, loan amount, and credit score.",
++      inputSchema: mortgageSearchSchema.shape,
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Personal Mortgages",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: MortgageSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new PersonalMortgageSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} personal mortgage offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${
++                    o.terms.termMonths / 12
++                  } years. Est. monthly payment: $${o.terms.payment?.amount.amount.toLocaleString()}`,
++              )
++              .join("\n")}`
++          : "No personal mortgage offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_business_mortgages",
++    {
++      description: "Compare business mortgage offers from various lenders.",
++    },
++    {
++      description:
++        "Find and compare business mortgages based on criteria like property value, loan amount, and business revenue.",
++      inputSchema: mortgageSearchSchema.shape,
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Business Mortgages",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: MortgageSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new BusinessMortgageSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} business mortgage offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${
++                    o.terms.termMonths / 12
++                  } years. Est. monthly payment: $${o.terms.payment?.amount.amount.toLocaleString()}`,
++              )
++              .join("\n")}`
++          : "No business mortgage offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "calculate_loan_payment",
++    {
++      description: "Calculate monthly payments for a general loan.",
++    },
++    {
++      description:
++        "Calculates loan payment details based on amount, interest rate, and term.",
++      inputSchema: loanPaymentSchema.shape,
++      outputSchema: loanPaymentResponseSchema,
++      annotations: {
++        title: "Loan Payment Calculator",
++        readOnlyHint: true,
++        openWorldHint: false,
++        destructiveHint: false,
++      },
++    },
++    (async (params: LoanPaymentParams) => {
++      const tool = new LoanPaymentCalculatorTool();
++      const result = tool.calculate(params);
++      const textSummary = `For a loan of $${params.loanAmount.toLocaleString()} at ${
++        params.interestRate
++      }% over ${params.loanTermInMonths} months:
++- Monthly Payment: $${result.monthlyPayment.toFixed(2)}
++- Total Payment: $${result.totalPayment.toFixed(2)}
++- Total Interest: $${result.totalInterest.toFixed(2)}`;
++
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "calculate_mortgage_payment",
++    {
++      description: "Calculate monthly payments for a mortgage.",
++    },
++    {
++      description:
++        "Calculates PITI mortgage payments based on property value, down payment, rate, term, taxes, and insurance.",
++      inputSchema: mortgagePaymentSchema.shape,
++      outputSchema: mortgagePaymentResponseSchema,
++      annotations: {
++        title: "Mortgage Payment Calculator",
++        readOnlyHint: true,
++        openWorldHint: false,
++        destructiveHint: false,
++      },
++    },
++    (async (params: MortgagePaymentParams) => {
++      const tool = new MortgageCalculatorTool();
++      const result = tool.calculate(params);
++      const textSummary = `For a property value of $${params.propertyValue.toLocaleString()} with a $${params.downPayment.toLocaleString()} down payment:
++- Loan Amount: $${result.loanAmount.toLocaleString()}
++- Principal & Interest: $${result.principalAndInterest.toFixed(2)}/mo
++- Property Tax: $${result.monthlyPropertyTax.toFixed(2)}/mo
++- Home Insurance: $${result.monthlyHomeInsurance.toFixed(2)}/mo
++- **Total Monthly Payment (PITI): $${result.totalMonthlyPayment.toFixed(
++        2,
++      )}/mo**`;
++
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_lease_vs_purchase",
++    {
++      description:
++        "Compare the financial implications of leasing versus purchasing a vehicle.",
++    },
++    {
++      description:
++        "Calculates and compares the total costs of leasing and buying a vehicle based on user-provided financial data.",
++      inputSchema: leaseVsPurchaseSchema.shape,
++      outputSchema: leaseVsPurchaseResponseSchema,
++      annotations: {
++        title: "Lease vs. Purchase Calculator",
++        readOnlyHint: true,
++        openWorldHint: false,
++        destructiveHint: false,
++      },
++    },
++    (async (params: LeaseVsPurchaseParams) => {
++      const tool = new LeaseVsPurchaseCalculatorTool();
++      const result = tool.calculate(params);
++      const textSummary = `**Lease vs. Purchase Analysis**
++---
++**Purchase:**
++- Monthly Payment: $${result.purchaseAnalysis.monthlyPayment.toFixed(2)}
++- Total Cost over ${
++        params.expectedOwnershipInMonths
++      } months: $${result.purchaseAnalysis.totalCostOfOwnership.toFixed(2)}
++
++**Lease:**
++- Monthly Payment: $${params.monthlyLeasePayment.toFixed(2)}
++- Total Cost over ${
++        params.expectedOwnershipInMonths
++      } months: $${result.leaseAnalysis.totalCostOfLeasing.toFixed(2)}
++
++**Recommendation:** ${result.comparison.recommendation}`;
++
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_business_credit_cards",
++    {
++      description: "Compare business credit card offers.",
++    },
++    {
++      description:
++        "Find and compare business credit cards based on criteria like credit score and business revenue.",
++      inputSchema: businessCreditCardSearchSchema.shape,
++      outputSchema: businessCreditCardComparisonResponseSchema,
++      annotations: {
++        title: "Compare Business Credit Cards",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: BusinessCreditCardSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new BusinessCreditCardSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++      const response = {
++        offers,
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} business credit card offer${
++              response.offers.length > 1 ? "s" : ""
++            }:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (card) =>
++                  `• **${card.name}** by ${card.issuer}
++    - Welcome Bonus: ${card.welcomeBonus}
++    - APR: ${card.terms.apr}%
++    - Annual Fee: $${card.terms.annualFee}`,
++              )
++              .join("\n\n")}`
++          : "No business credit card offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_business_banking",
++    {
++      description: "Compare business banking account offers.",
++    },
++    {
++      description:
++        "Find and compare business banking accounts based on criteria like industry and transaction volume.",
++      inputSchema: businessBankingSearchSchema.shape,
++      outputSchema: businessBankingComparisonResponseSchema,
++      annotations: {
++        title: "Compare Business Banking",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: BusinessBankingSearchSchema, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new BusinessBankingSearchTool();
++      const toolParams = {
++        ...params,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++      const response = {
++        offers,
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} business banking account${
++              response.offers.length > 1 ? "s" : ""
++            }:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (acc) =>
++                  `• **${acc.name}** by ${acc.issuer}
++    - Best for: ${acc.bestFor}
++    - APY: ${acc.apy}
++    - Monthly Fee: ${acc.monthlyFee}`,
++              )
++              .join("\n\n")}`
++          : "No business banking accounts found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_personal_banking",
++    {
++      description: "Compare personal banking account offers.",
++    },
++    {
++      description:
++        "Find and compare personal banking accounts based on desired features.",
++      inputSchema: personalBankingSearchSchema.shape,
++      outputSchema: personalBankingComparisonResponseSchema,
++      annotations: {
++        title: "Compare Personal Banking",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: PersonalBankingSearchSchema, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new PersonalBankingSearchTool();
++      const toolParams = {
++        ...params,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++      const response = {
++        offers,
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} personal banking account${
++              response.offers.length > 1 ? "s" : ""
++            }:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (acc) =>
++                  `• **${acc.name}** by ${acc.issuer}
++    - Best for: ${acc.bestFor}
++    - APY: ${acc.apy}
++    - Monthly Fee: ${acc.monthlyFee}`,
++              )
++              .join("\n\n")}`
++          : "No personal banking accounts found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_savings_accounts",
++    {
++      description: "Compare savings account offers.",
++    },
++    {
++      description:
++        "Find and compare savings accounts based on criteria like initial deposit.",
++      inputSchema: savingsSearchSchema.shape,
++      outputSchema: savingsComparisonResponseSchema,
++      annotations: {
++        title: "Compare Savings Accounts",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: SavingsSearchSchema, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new SavingsAccountSearchTool();
++      const toolParams = {
++        ...params,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++      const response = {
++        offers,
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} savings account${
++              response.offers.length > 1 ? "s" : ""
++            }:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (acc) =>
++                  `• **${acc.name}** by ${acc.issuer}
++    - APY: ${acc.apy}
++    - Monthly Fee: ${acc.monthlyFee}
++    - Min Balance for APY: ${acc.minBalanceForApy}`,
++              )
++              .join("\n\n")}`
++          : "No savings accounts found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_personal_credit_cards",
++    {
++      description: "Compare personal credit card offers.",
++    },
++    {
++      description:
++        "Find and compare personal credit cards based on criteria like credit score and rewards type.",
++      inputSchema: personalCreditCardSearchSchema.shape,
++      outputSchema: personalCreditCardComparisonResponseSchema,
++      annotations: {
++        title: "Compare Personal Credit Cards",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: PersonalCreditCardSearchSchema, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new PersonalCreditCardSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++      const response = {
++        offers,
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++      const textSummary =
++        offers.length > 0
++          ? `Found ${offers.length} credit card offer${
++              offers.length > 1 ? "s" : ""
++            }:\n\n${offers
++              .slice(0, 5)
++              .map(
++                (card, i) =>
++                  `${i + 1}. **${card.name}**
++   - Issuer: ${card.issuer}
++   - Best For: ${card.bestFor}
++   - Recommended Credit Score: ${card.recommendedCreditScore}
++   - Rewards: ${card.rewardsRate}
++   - Intro Offer: ${card.introOffer}`,
++              )
++              .join("\n\n")}${
++              offers.length > 5
++                ? `\n\n...and ${offers.length - 5} more offers`
++                : ""
++            }`
++          : "No credit card offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [
++          {
++            type: "text",
++            text: textSummary,
++          },
++        ],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_car_loans",
++    {
++      description: "Compare car loan offers from multiple lenders.",
++    },
++    {
++      description:
++        "Find and compare car loans based on user criteria like amount, credit score, and vehicle type.",
++      inputSchema: autoLoanSearchSchema.shape,
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Car Loans",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: AutoLoanSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new CarLoanSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} car loan offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${
++                    o.terms.termMonths
++                  } months. Est. monthly payment: $${o.terms.payment?.amount.amount.toLocaleString()}`,
++              )
++              .join("\n")}`
++          : "No car loan offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "compare_student_loans",
++    {
++      description: "Compare student loan offers from multiple lenders.",
++    },
++    {
++      description:
++        "Find and compare student loans based on user criteria like amount, credit score, and degree type.",
++      inputSchema: studentLoanSearchSchema.shape,
++      outputSchema: loanComparisonResponseSchema,
++      annotations: {
++        title: "Compare Student Loans",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: StudentLoanSearchParams, context: ToolContext) => {
++      const userConfig = (context as any).request?.userConfig || {};
++      const tool = new StudentLoanSearchTool();
++      const toolParams = {
++        ...params,
++        creditScore:
++          params.creditScore ??
++          userConfig.defaultCreditScore ??
++          currentConfig.defaultCreditScore,
++        maxResults: userConfig.maxResults ?? currentConfig.maxResults,
++        includeReviewStatus:
++          userConfig.includeReviewStatus ?? currentConfig.includeReviewStatus,
++      };
++      const { offers, sessionId } = await tool.search(toolParams);
++
++      const response = {
++        offers: offers,
++        summary: {
++          totalOffers: offers.length,
++          bestRate:
++            offers.length > 0
++              ? Math.min(...offers.map((o) => o.terms.interestRate.apr))
++              : 0,
++          fastestFunding:
++            offers.length > 0
++              ? offers[0].process.fundingSpeed?.description || "N/A"
++              : "N/A",
++        },
++        searchCriteria: params,
++        metadata: {
++          queryId: uuidv4(),
++          timestamp: new Date().toISOString(),
++          sessionId,
++        },
++      };
++
++      const textSummary =
++        response.offers.length > 0
++          ? `Found ${response.offers.length} student loan offer${
++              response.offers.length > 1 ? "s" : ""
++            }. Here are the top ${Math.min(
++              3,
++              response.offers.length,
++            )}:\n\n${response.offers
++              .slice(0, 3)
++              .map(
++                (o) =>
++                  `• **${
++                    o.lender.name
++                  }**: Up to $${o.terms.amount.amount.toLocaleString()} at ${o.terms.interestRate.apr.toFixed(
++                    2,
++                  )}% APR for ${o.terms.termMonths} months.`,
++              )
++              .join("\n")}`
++          : "No student loan offers found matching your criteria.";
++
++      return {
++        structuredContent: response,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerTool(
++    "get_offer",
++    {
++      description:
++        "Creates a new application and submits it to one selected provider, after user confirmation of the selected provider.",
++      inputSchema: getOfferSchema.shape,
++      outputSchema: personalApplicationSchema,
++      _meta: {
++        "openai/widgetAccessible": true,
++        annotations: {
++          title: "Get Offer",
++          readOnlyHint: false,
++          openWorldHint: true,
++          destructiveHint: false,
++        },
++      },
++    },
++    async function (this: ToolContext, params: GetOfferParams) {
++      const tool = new GetOfferTool();
++      const result = await tool.execute(params);
++      const textSummary = `Your application has been submitted successfully.
++- Application ID: ${result.id}
++- Status: ${result.status}
++- Product: ${result.productType}
++You can track the status of your application using the ID.`;
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    },
++  );
++
++  server.registerTool(
++    "get_multiple_offers",
++    {
++      description:
++        "Creates a new application and submits it to a list of selected providers, after user confirmation of the selected providers.",
++      inputSchema: getMultipleOffersSchema.shape,
++      outputSchema: personalApplicationSchema,
++      _meta: {
++        "openai/widgetAccessible": true,
++        annotations: {
++          title: "Get Multiple Offers",
++          readOnlyHint: false,
++          openWorldHint: true,
++          destructiveHint: false,
++        },
++      },
++    },
++    async function (this: ToolContext, params: GetMultipleOffersParams) {
++      const tool = new GetMultipleOffersTool();
++      const result = await tool.execute(params);
++      const textSummary = `Your application has been submitted to multiple lenders.
++- Application ID: ${result.id}
++- Status: ${result.status}
++- Product: ${result.productType}
++You can track the status of your application using the ID.`;
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    },
++  );
++
++  server.registerTool(
++    "display_offer_form",
++    {
++      description:
++        "Retrieve a cached loan offer and its search parameters to display a form.",
++      inputSchema: displayOfferFormSchema.shape,
++      outputSchema: displayOfferFormResponseSchema,
++      _meta: {
++        "openai/widgetAccessible": true,
++        annotations: {
++          title: "Display Offer Form",
++          readOnlyHint: true,
++          openWorldHint: true,
++          destructiveHint: false,
++        },
++      },
++    },
++    async function (this: ToolContext, params: DisplayOfferFormParams) {
++      const tool = new DisplayOfferFormTool();
++      const result = await tool.execute(params);
++      const lenderName =
++        result.offer.lender?.name || result.offer.issuer || "the provider";
++      const textSummary = `Displaying the application form for the selected ${result.productType} offer from ${lenderName}.`;
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    },
++  );
++
++  server.registerWidget(
++    "track_offer_status",
++    {
++      description:
++        "Track the status of loan applications by application ID or email.",
++    },
++    {
++      description:
++        "Retrieves the current status and details of one or more applications from SecureLend's stored application records.",
++      inputSchema: trackOfferStatusSchema.shape,
++      outputSchema: trackOfferStatusResponseSchema,
++      annotations: {
++        title: "Track Offer Status",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false,
++      },
++    },
++    (async (params: TrackOfferStatusParams, _context: ToolContext) => {
++      const tool = new TrackOfferStatusTool();
++      const result = await tool.execute(params);
++      const textSummary =
++        result.applications.length > 0
++          ? `Found ${result.applications.length} application${
++              result.applications.length > 1 ? "s" : ""
++            }:\n\n${result.applications
++              .map(
++                (app) =>
++                  `• Application ID: ${app.id}
++  - Status: ${app.status}
++  - Product: ${app.productType}
++  - Submitted To: ${app.providers.map((p) => p.providerName).join(", ")}`,
++              )
++              .join("\n\n")}`
++          : "No applications found matching your criteria.";
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerWidget(
++    "display_upload_documents_form",
++    {
++      description: "Display a form to upload documents for an application.",
++      _meta: {
++        ui: {
++          csp: {
++            connectDomains: s3ConnectDomains,
++          },
++        },
++      },
++    },
++    {
++      description:
++        "Presents a user interface for uploading documents such as bank statements, tax returns, or identity documents.",
++      inputSchema: displayUploadDocumentsFormSchema.shape,
++      outputSchema: displayUploadDocumentsFormResponseSchema,
++      annotations: {
++        title: "Upload Documents",
++        readOnlyHint: true,
++        openWorldHint: true,
++        destructiveHint: false, // It leads to an upload
++      },
++    },
++    (async (params: DisplayUploadDocumentsFormParams, context: ToolContext) => {
++      const tool = new DisplayUploadDocumentsFormTool();
++      await tool.execute(params, context);
++      const textSummary =
++        "Displaying the document upload form. Please follow the instructions in the widget to upload your files.";
++      return {
++        structuredContent: {}, // Just trigger the widget
++        content: [{ type: "text", text: textSummary }],
++        isError: false,
++      };
++    }) as any,
++  );
++
++  server.registerTool(
++    "submit_documents",
++    {
++      description:
++        "Generates a pre-signed URL to allow the user to securely upload a document for an application.",
++      inputSchema: submitDocumentsSchema.shape,
++      outputSchema: submitDocumentsResponseSchema,
++      _meta: {
++        "openai/widgetAccessible": true, // Callable from widget
++        annotations: {
++          title: "Submit Documents",
++          readOnlyHint: false,
++          openWorldHint: true,
++          destructiveHint: false,
++        },
++      },
++    },
++    async function (this: ToolContext, params: SubmitDocumentsParams) {
++      const tool = new SubmitDocumentsTool();
++      const result = await tool.execute(params, this);
++      const textSummary = result.success
++        ? `Successfully prepared for document upload. Your document ID is ${result.documentId}. The upload will now begin.`
++        : `Failed to prepare for document upload: ${result.message}`;
++
++      return {
++        structuredContent: result,
++        content: [{ type: "text", text: textSummary }],
++        isError: !result.success,
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "compare_loans",
++    {
++      description: "Compare loan options for different scenarios",
++      argsSchema: {
++        loan_type: z
++          .string()
++          .describe(
++            "Type of loan (business, personal, mortgage, auto, student)",
++          ),
++        amount: z.string().describe("Desired loan amount in USD"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `I need a ${args.loan_type} loan for $${args.amount}. Please compare my options.`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "calculate_payment",
++    {
++      description: "Calculate monthly payment for a loan",
++      argsSchema: {
++        amount: z.string().describe("Loan amount"),
++        term: z.string().describe("Loan term in months"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `Calculate the monthly payment for a $${args.amount} loan with a ${args.term} month term.`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "track_status",
++    {
++      description: "Track the status of a loan application",
++      argsSchema: {
++        application_id: z
++          .string()
++          .describe("The ID of the application to track"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `What is the status of my application with ID ${args.application_id}?`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "find_credit_card",
++    {
++      description: "Find a credit card based on my needs",
++      argsSchema: {
++        credit_score: z.string().describe("My estimated credit score"),
++        rewards_type: z
++          .string()
++          .optional()
++          .describe("Preferred rewards type (e.g., cash back, travel)"),
++      },
++    },
++    async (args: any) => {
++      let text = `Find a credit card for me. My credit score is ${args.credit_score}.`;
++      if (args.rewards_type) {
++        text += ` I prefer ${args.rewards_type} rewards.`;
++      }
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "upload_document",
++    {
++      description: "Help me upload a document for my application",
++      argsSchema: {
++        application_id: z.string().describe("The ID of the application"),
++        document_type: z
++          .string()
++          .describe("What type of document is it? (e.g. 'tax return')"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `I need to upload a ${args.document_type} for application ${args.application_id}.`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "lease_or_buy",
++    {
++      description: "Should I lease or buy a car?",
++      argsSchema: {
++        car_price: z.string().describe("The total price of the car in USD"),
++        down_payment: z
++          .string()
++          .describe("How much you can pay upfront in USD"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `Should I lease or buy a car that costs $${args.car_price}? I can make a down payment of $${args.down_payment}.`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "find_business_bank",
++    {
++      description: "Find a business bank account for my company",
++      argsSchema: {
++        monthly_transactions: z
++          .string()
++          .optional()
++          .describe("How many transactions do you expect per month?"),
++        industry: z
++          .string()
++          .optional()
++          .describe("What industry is your business in?"),
++      },
++    },
++    async (args: any) => {
++      let text = "Help me find a business bank account.";
++      if (args.monthly_transactions) {
++        text += ` I expect around ${args.monthly_transactions} transactions per month.`;
++      }
++      if (args.industry) {
++        text += ` My business is in the ${args.industry} industry.`;
++      }
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "calculate_mortgage",
++    {
++      description: "Calculate my monthly mortgage payment",
++      argsSchema: {
++        property_value: z.string().describe("The value of the property in USD"),
++        down_payment: z.string().describe("My down payment in USD"),
++        interest_rate: z
++          .string()
++          .describe("The annual interest rate (e.g., 6.5)"),
++        loan_term: z.string().describe("The loan term in years (e.g., 30)"),
++      },
++    },
++    async (args: any) => {
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text: `Calculate my monthly mortgage payment for a property valued at $${args.property_value} with a $${args.down_payment} down payment. The interest rate is ${args.interest_rate}% and the loan term is ${args.loan_term} years.`,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "find_savings_account",
++    {
++      description: "Find a high-yield savings account",
++      argsSchema: {
++        initial_deposit: z
++          .string()
++          .optional()
++          .describe("How much I plan to deposit initially in USD"),
++      },
++    },
++    async (args: any) => {
++      let text = "Help me find a high-yield savings account.";
++      if (args.initial_deposit) {
++        text += ` I plan to make an initial deposit of $${args.initial_deposit}.`;
++      }
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  server.registerPrompt(
++    "compare_mortgages",
++    {
++      description: "Compare mortgage options",
++      argsSchema: {
++        loan_amount: z.string().describe("Desired loan amount in USD"),
++        credit_score: z.string().describe("My estimated credit score"),
++        state: z
++          .string()
++          .optional()
++          .describe("The state where the property is located (2-letter code)"),
++      },
++    },
++    async (args: any) => {
++      let text = `Compare mortgage options for a loan of $${args.loan_amount}. My credit score is ${args.credit_score}.`;
++      if (args.state) {
++        text += ` The property is in ${args.state}.`;
++      }
++      return {
++        messages: [
++          {
++            role: "user",
++            content: {
++              type: "text",
++              text,
++            },
++          },
++        ],
++      };
++    },
++  );
++
++  // Standard MCP prompts handler
++  if ((server as any).setRequestHandler) {
++    // Override initialize to advertise all capabilities
++    (server as any).setRequestHandler(
++      InitializeRequestSchema,
++      async (request: any) => {
++        return {
++          protocolVersion: request.params.protocolVersion,
++          capabilities: {
++            tools: {},
++            resources: {},
++            prompts: {},
++            experimental: {
++              resourceTemplates: true,
++            },
++          },
++          serverInfo: {
++            name: "securelend-mcp-financial-services",
++            version: "1.0.0",
++            title: "SecureLend Financial Services",
++            description:
++              "AI-powered financial services marketplace connecting borrowers with 200+ lenders. Compare loans, mortgages, credit cards, and banking products with instant quotes and application tracking.",
++            websiteUrl: "https://securelend.ai",
++            icons: [{ src: "https://securelend.ai/logo.png" }],
++          },
++        };
++      },
++    );
++  }
++  return server;
++};
++
++export type AppType = ReturnType<typeof createMcpServer>;
++
++// --- SMITHERY ENTRY POINT ---
++// Explicit named function export to aid static analysis
++export default async function createServer({
++  config,
++}: ServerContext<ServerConfig>): Promise<any> {
++  const logger = createLogger("SmitheryServer");
++
++  logger.info("Creating MCP server with Smithery config", {
++    environment: config.environment,
++    maxResults: config.maxResults,
++    defaultCreditScore: config.defaultCreditScore,
++    includeReviewStatus: config.includeReviewStatus,
++  });
++
++  // Pass the smithery config into the main server builder
++  const server = createMcpServer(config);
++
++  return server.server;
++}
++
+
+# 2026-01-21 11:27:16.521096
++n
+
+# 2026-01-21 11:28:05.401501
++s
+
+# 2026-01-21 13:47:58.388564
++please continue
+
+# 2026-01-21 14:10:23.394790
++lets continue
+
+# 2026-01-21 14:24:56.116889
++which files are you trying to update? Please share the list and I will manually delete the content so you can just write from scratch without replacing issues
+
+# 2026-01-21 14:28:41.363342
++all files are now empty 
+
+# 2026-01-21 14:30:45.542109
++/run rm types/typescript/index.ts
+
+# 2026-01-21 14:30:45.549276
++/run rm types/typescript/index.ts
+
+# 2026-01-21 14:30:51.376579
++/run rmdir types/typescript
+
+# 2026-01-21 14:30:51.377694
++/run rmdir types/typescript
+
+# 2026-01-21 14:30:53.086459
++/run rmdir types
+
+# 2026-01-21 14:30:53.086661
++/run rmdir types
+
+# 2026-01-21 14:30:55.727373
++/run rm schemas/tools/comparison-tools.json
+
+# 2026-01-21 14:30:55.727787
++/run rm schemas/tools/comparison-tools.json
+
+# 2026-01-21 14:30:57.986692
++/run rmdir schemas/tools
+
+# 2026-01-21 14:30:57.987003
++/run rmdir schemas/tools
+
+# 2026-01-21 14:30:59.562540
++/run rm schemas/products/loans/business-loans.json
+
+# 2026-01-21 14:30:59.562712
++/run rm schemas/products/loans/business-loans.json
+
+# 2026-01-21 14:31:01.448997
++/run rm schemas/products/banking/business-banking.json
+
+# 2026-01-21 14:31:01.449324
++/run rm schemas/products/banking/business-banking.json
+
+# 2026-01-21 14:31:02.943873
++/run rmdir schemas/products/loans
+
+# 2026-01-21 14:31:02.944165
++/run rmdir schemas/products/loans
+
+# 2026-01-21 14:31:04.883857
++/run rmdir schemas/products/banking
+
+# 2026-01-21 14:31:04.885892
++/run rmdir schemas/products/banking
+
+# 2026-01-21 14:31:06.879307
++/run rmdir schemas/products
+
+# 2026-01-21 14:31:06.879562
++/run rmdir schemas/products
+
+# 2026-01-21 14:31:17.547148
++ok let's continue
+
+# 2026-01-21 14:33:22.130646
++/run mv docs/api-reference.md docs/tool-reference.md
+
+# 2026-01-21 14:33:22.131370
++/run mv docs/api-reference.md docs/tool-reference.md
+
+# 2026-01-21 14:33:24.479239
++/run rm docs/getting-started.md
+
+# 2026-01-21 14:33:24.479538
++/run rm docs/getting-started.md
+
+# 2026-01-21 14:34:33.242814
++the claude setup for desktop is actually easier just go to https://extensions.securelend.ai/ donload the *.mcpb file, click install, done 
+
+# 2026-01-21 14:34:35.139792
++n
+
+# 2026-01-21 14:35:20.173364
++/run rm examples/claude-desktop/config.json
+
+# 2026-01-21 14:35:20.173837
++/run rm examples/claude-desktop/config.json
+
+# 2026-01-21 14:36:37.918074
++has all of the following been implemented already? Updated GitHub Repository Strategy - With SDK Separation
++Repository Structure Clarification
++You have two separate repositories:
++
++SecureLend/mcp-financial-services - MCP Server + Schemas + Documentation
++SecureLend/sdk - Client SDK (TypeScript, React, Python) - WIP
++
++This is actually a good architecture! Here's how to position each:
++
++Repository #1: mcp-financial-services (For Claude Directory)
++Current Purpose (Confused)
++Claims to be: "Open-source MCP server and SDK for financial services comparison"
++New Purpose (Clear)
++"Standardized schemas and MCP server for financial services comparison"
++What It Should Contain
++
++JSON Schemas - OpenAPI/JSON Schema definitions for all financial products
++MCP Server Documentation - How to connect to mcp.dev.securelend.ai
++Integration Examples - Claude Desktop, ChatGPT setup guides
++Tool Reference - Documentation for all 20 tools
++Reference Link to SDK - Point to github.com/SecureLend/sdk for client libraries
++
++What It Should NOT Contain
++
++❌ SDK implementation code (that's in the other repo)
++❌ Package installation instructions for npm (that's in the SDK repo)
++❌ Client library usage examples (that's in the SDK repo)
++
++
++Repository #2: sdk (Developer-focused)
++Purpose
++"Official client libraries for SecureLend MCP server"
++What It Contains
++
++✅ @securelend/mcp-client - TypeScript SDK
++✅ @securelend/react - React hooks
++🔄 Python SDK (coming)
++🔄 Ruby SDK (coming)
++
++What's Working
++
++Has actual code in packages/core/
++Has package.json configuration
++Has TypeScript build setup
++Has proper MIT license
++
++
++Revised Strategy for mcp-financial-services Repo
++Update README.md
++markdown# SecureLend Financial Services - MCP Server
++
++> **Production MCP server and standardized schemas for financial services comparison**
++
++[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
++[![MCP Server](https://img.shields.io/badge/MCP-Server-blue.svg)](https://modelcontextprotocol.io)
++
++This repository provides:
++- 📋 **Standardized JSON schemas** for loans, banking, credit cards
++- 🔌 **MCP server** at `mcp.dev.securelend.ai` for Claude and ChatGPT
++- 📚 **Integration documentation** and examples
++- 🛠️ **20+ tools** for financial product comparison
++
++**Looking for client libraries?** See [`@securelend/sdk`](https://github.com/SecureLend/sdk)
++
++---
++
++## 🔌 Quick Connect
++
++### Claude Desktop
++Add to your `claude_desktop_config.json`:
++```json
++{
++  "mcpServers": {
++    "securelend": {
++      "url": "https://mcp.dev.securelend.ai/mcp"
++    }
++  }
++}
++```
++
++### ChatGPT
++Search "SecureLend Financial Services" in the GPT store
++
++### Programmatic Access
++For direct API access, use our SDK:
++```bash
++npm install @securelend/mcp-client
++```
++See [SDK documentation](https://github.com/SecureLend/sdk) for usage.
++
++---
++
++## 🛠️ Available Tools (20)
++
++### Loan Comparison
++- **compare_personal_loans** - Compare personal loan offers
++- **compare_business_loans** - Compare business loan offers  
++- **compare_car_loans** - Compare auto loan rates
++- **compare_student_loans** - Compare student loan options
++- **compare_personal_mortgages** - Compare mortgage rates
++- **compare_business_mortgages** - Compare commercial mortgages
++
++### Banking Products
++- **compare_personal_banking** - Compare checking/savings accounts
++- **compare_business_banking** - Compare business banking products
++- **compare_savings_accounts** - Compare high-yield savings rates
++
++### Credit Cards
++- **compare_personal_credit_cards** - Compare personal credit cards
++- **compare_business_credit_cards** - Compare business credit cards
++
++### Calculators
++- **calculate_loan_payment** - Calculate monthly loan payments
++- **calculate_mortgage_payment** - Calculate PITI mortgage payments
++- **compare_lease_vs_purchase** - Compare leasing vs buying vehicles
++
++### Application Management
++- **get_offer** - Submit application to selected lender
++- **get_multiple_offers** - Submit to multiple lenders
++- **track_offer_status** - Check application status
++- **display_offer_form** - Generate pre-filled forms
++- **display_upload_documents_form** - Upload required documents
++- **submit_documents** - Submit application documents
++
++---
++
++## 📋 JSON Schemas
++
++This repository contains standardized schemas for financial products:
++
++- **[Personal Loans](./schemas/personal-loans.json)** - Debt consolidation, home improvement
++- **[Business Loans](./schemas/business-loans.json)** - Term loans, lines of credit, SBA
++- **[Mortgages](./schemas/mortgages.json)** - Conventional, FHA, VA, jumbo
++- **[Auto Loans](./schemas/auto-loans.json)** - New and used vehicle financing
++- **[Student Loans](./schemas/student-loans.json)** - Undergraduate, graduate, refinancing
++- **[Credit Cards](./schemas/credit-cards.json)** - Personal and business cards
++- **[Banking Products](./schemas/banking.json)** - Checking, savings accounts
++
++See [schemas/README.md](./schemas/README.md) for detailed documentation.
++
++---
++
++## 🎯 Example Usage
++
++### In Claude
++User: "Compare business loans for $200k. My business has $1.2M revenue,
++720 credit score, been in business 3 years. Need it for equipment."
++Claude: [Uses compare_business_loans tool]
++"Found 5 competitive offers for your $200k equipment loan:
++    1. ABC Business Capital - 7.5% APR, $3,200/month
++    2. SmallBiz Lending - 8.2% APR, $3,350/month
++    ..."
++
++### In ChatGPT
++User: "What's my monthly payment on a $35k car loan at 6.5% for 60 months?"
++ChatGPT: [Uses calculate_loan_payment tool]
++"Monthly payment: $683.52
++Total interest: $6,011.20"
++
++### Programmatic Usage
++```typescript
++import { SecureLendMCP } from '@securelend/mcp-client';
++
++const client = new SecureLendMCP();
++const loans = await client.compareBusinessLoans({
++  loanAmount: 200000,
++  purpose: 'equipment',
++  annualRevenue: 1200000
++});
++```
++
++See [SDK documentation](https://github.com/SecureLend/sdk) for full API reference.
++
++---
++
++## 📖 Documentation
++
++- **[Complete MCP Documentation](https://docs.securelend.ai/mcp/overview)**
++- **[Tool Reference](https://docs.securelend.ai/mcp/tools)**
++- **[SDK Documentation](https://github.com/SecureLend/sdk)** - For programmatic access
++- **[Example Conversations](./examples/)** - Sample MCP interactions
++- **[Integration Guides](./docs/)** - Claude Desktop, ChatGPT setup
++
++---
++
++## 🏗️ Architecture
++┌─────────────────────────────────────────────────────────┐
++│                   MCP Clients                           │
++│  (Claude Desktop, ChatGPT, Custom Apps via SDK)         │
++└─────────────────────────────────────────────────────────┘
++│
++│ MCP Protocol
++▼
++┌─────────────────────────────────────────────────────────┐
++│            mcp.dev.securelend.ai (This Repo)            │
++│  • 20 financial comparison tools                        │
++│  • JSON Schema validation                               │
++│  • Lender integration layer                             │
++└─────────────────────────────────────────────────────────┘
++│
++│ REST APIs
++▼
++┌─────────────────────────────────────────────────────────┐
++│              Financial Service Providers                 │
++│  (Banks, Lenders, Credit Card Issuers)                  │
++└─────────────────────────────────────────────────────────┘
++
++---
++
++## 🔒 Security & Compliance
++
++- **SOC 2 Type 2 Certified** - Completed Q4 2024
++- **No authentication required** - Comparison tools are read-only
++- **HTTPS encryption** - All data transmitted securely
++- **Privacy-first** - No storage of comparison data
++
++---
++
++## 🤝 Contributing
++
++We welcome contributions to:
++- Improve JSON schemas
++- Add new financial product types
++- Enhance documentation
++- Report issues
++
++See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
++
++**For SDK contributions**, see the [SDK repository](https://github.com/SecureLend/sdk).
++
++---
++
++## 📧 Support
++
++- **MCP Documentation:** https://docs.securelend.ai/mcp
++- **SDK Documentation:** https://github.com/SecureLend/sdk
++- **Email:** developers@securelend.ai
++- **Issues:** GitHub Issues (this repo for MCP, SDK repo for client libraries)
++
++---
++
++## 📜 Legal
++
++- **[Terms of Service](https://securelend.ai/legal/terms)**
++- **[Privacy Policy](https://securelend.ai/legal/privacy)**
++
++---
++
++## 🗺️ Roadmap
++
++### Q1 2025 ✅
++- ✅ 20 financial comparison tools
++- ✅ Claude Desktop integration
++- ✅ ChatGPT integration
++- ✅ TypeScript SDK (beta)
++- ✅ SOC 2 Type 2 certification
++
++### Q2 2025
++- 🔄 Python SDK (GA)
++- 🔄 Canadian market launch
++- 🔄 Insurance products
++- 🔄 React SDK components
++
++### Q3 2025
++- 🔄 UK/Australia launch
++- 🔄 Ruby/Go SDKs
++- 🔄 Investment products
++
++---
++
++## 🔗 Related Projects
++
++- **[SecureLend SDK](https://github.com/SecureLend/sdk)** - Client libraries for programmatic access
++- **[MCP Protocol](https://modelcontextprotocol.io)** - Model Context Protocol specification
++
++---
++
++## License
++
++MIT © 2025 SecureLend, Inc.
++
++---
++
++**Built by [SecureLend](https://securelend.ai)** | [MCP Docs](https://docs.securelend.ai/mcp) | [SDK Docs](https://github.com/SecureLend/sdk) | [Privacy](https://securelend.ai/legal/privacy)
++
++Key Changes from Original
++What We Fixed
++
++Clarified Repository Purpose
++
++OLD: "Open-source MCP server and SDK"
++NEW: "Standardized schemas and MCP server" + link to SDK repo
++
++
++Separated Concerns
++
++MCP server docs → THIS repo
++Client SDK code → SDK repo
++Clear cross-references between them
++
++
++Set Correct Expectations
++
++No false promises about SDK in this repo
++Clear architecture diagram
++Proper links to SDK repo for programmatic usage
++
++
++Added Missing Content
++
++Will add JSON schemas
++Will add integration examples
++Will add example conversations
++
++
++
++
++Files to Add to mcp-financial-services Repo
++1. schemas/ Directory
++schemas/
++├── README.md
++├── personal-loans.json
++├── business-loans.json
++├── mortgages.json
++├── auto-loans.json
++├── student-loans.json
++├── credit-cards.json
++├── banking.json
++└── calculators.json
++2. examples/ Directory
++examples/
++├── README.md
++├── claude-desktop/
++│   ├── config.json
++│   └── example-conversations.md
++├── chatgpt/
++│   └── setup-guide.md
++└── sdk-usage/
++    └── README.md (links to SDK repo)
++3. docs/ Directory
++docs/
++├── README.md (links to docs.securelend.ai)
++├── claude-setup.md
++├── chatgpt-setup.md
++└── tool-reference.md
++
++Updated Submission Checklist
++For Claude Directory (mcp-financial-services repo)
++
++ Update README with clarified purpose (schemas + MCP server)
++ Add all JSON schemas in schemas/ directory
++ Add Claude Desktop setup example
++ Add ChatGPT setup example
++ Add example conversations
++ Link to SDK repo for programmatic usage
++ Update SECURITY.md (no auth required for read-only tools)
++ Verify all docs links point to docs.securelend.ai
++
++CORS Configuration
++Add to your MCP server:
++typescriptapp.use((req, res, next) => {
++  res.setHeader('Access-Control-Allow-Origin', 'https://claude.ai');
++  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
++  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
++  res.setHeader('Access-Control-Allow-Credentials', 'true');
++  
++  if (req.method === 'OPTIONS') {
++    return res.status(200).end();
++  }
++  next();
++});
++
++SDK Repository Status
++What's Good ✅
++
++Separate repository (good separation of concerns)
++Has actual code in packages/core/
++Has proper package.json structure
++TypeScript setup configured
++MIT licensed
++
++What Needs Attention ⚠️
++
++Appears to be work in progress
++May not be published to npm yet
++Should clarify "beta" or "alpha" status
++
++Recommendation for SDK Repo
++
++Add a "Status: Beta" badge to README
++Clarify when it will be published to npm
++Add installation instructions once published
++
++
++Timeline to Submission-Ready
++mcp-financial-services Repo Updates
++Estimated Time: 3-4 hours
++
++Update README.md (1 hour)
++Create JSON schemas (1.5 hours)
++Add examples directory (1 hour)
++Update other docs (30 min)
++
++Infrastructure
++Estimated Time: 30 minutes
++
++Verify CORS configuration for https://claude.ai
++Test MCP server accessibility
++Verify docs.securelend.ai is up-to-date
++
++Total: ~4-5 hours to submission-ready
++
++Claude Directory Form Answers
++Based on this clarified structure:
++Pre-Submission Requirements:
++
++✅ OAuth 2.0: Not required (read-only comparison tools)
++✅ Safety annotations: Included in schema definitions
++✅ HTTPS: Yes, at mcp.dev.securelend.ai
++✅ CORS: Configure for https://claude.ai
++✅ IP allowlist: Not applicable (public server)
++
++Documentation:
++
++✅ Server docs: docs.securelend.ai/mcp/overview
++✅ Privacy policy: securelend.ai/legal/privacy
++✅ Terms of service: securelend.ai/legal/terms
++
++Testing:
++
++✅ Test account: Not needed (read-only tools)
++✅ Tools tested: Yes, functional in Claude Desktop and ChatGPT
++
++
++Final Recommendation
++You're in much better shape than I initially thought! The SDK separation is smart.
++Action Items:
++
++Update mcp-financial-services README - Clarify it's schemas + MCP server docs
++Add JSON schemas to the repo
++Add integration examples (Claude Desktop, ChatGPT)
++Configure CORS for https://claude.ai
++Submit to Claude directory
++
++The SDK repo can continue development independently. Once it's ready, you can publish to npm and update the MCP repo to reference the published packages.
++You can submit within 1 business day with focused effort on the MCP repo updates.
++Would you like me to generate the actual JSON schema files now?
+
+# 2026-01-21 14:36:40.906200
++s
+
+# 2026-01-21 14:38:14.289872
++have the following been created? schemas/
++├── README.md
++├── personal-loans.json
++├── business-loans.json
++├── mortgages.json
++├── auto-loans.json
++├── student-loans.json
++├── credit-cards.json
++├── banking.json
++└── calculators.json
+
+# 2026-01-21 14:46:36.515373
++n
+
+# 2026-01-21 14:49:03.138243
++what else needs to be updated to make the schema definitions complete?
+
+# 2026-01-21 14:50:27.878376
++@securelend/mcp-client > change to @securelend/sdk !
+
+# 2026-01-21 14:51:06.721133
++good to deploy? 
