@@ -2,7 +2,55 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.securelend.ai/products/mortgages.json",
   "title": "Mortgage Product Schema",
-  "description": "Schema for mortgage requests and offers. (Placeholder)",
-  "type": "object",
-  "properties": {}
+  "description": "Schema for mortgage requests and offers.",
+  "definitions": {
+    "MortgageRequest": {
+      "type": "object",
+      "properties": {
+        "propertyValue": { "$ref": "core/base.json#/definitions/Money" },
+        "downPayment": { "$ref": "core/base.json#/definitions/Money" },
+        "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+        "loanPurpose": { "type": "string", "enum": ["purchase", "refinance"] },
+        "propertyType": { "type": "string", "enum": ["single_family", "multi_family", "condo", "townhouse"] },
+        "propertyLocation": { "$ref": "core/base.json#/definitions/Geography" },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "creditScore": { "type": "integer" },
+            "annualIncome": { "$ref": "core/base.json#/definitions/Money" },
+            "monthlyDebt": { "$ref": "core/base.json#/definitions/Money" }
+          },
+          "required": ["creditScore", "annualIncome"]
+        }
+      },
+      "required": ["loanAmount", "loanPurpose", "applicant"]
+    },
+    "MortgageOffer": {
+      "type": "object",
+      "properties": {
+        "offerId": { "type": "string" },
+        "lender": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
+        "productType": { "type": "string", "enum": ["conventional", "fha", "va", "jumbo", "usda"] },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+            "interestRate": {
+              "type": "object",
+              "properties": {
+                "rate": { "$ref": "core/base.json#/definitions/Percentage" },
+                "apr": { "$ref": "core/base.json#/definitions/Percentage" },
+                "type": { "type": "string", "enum": ["fixed", "arm"] }
+              },
+              "required": ["rate", "apr", "type"]
+            },
+            "termMonths": { "type": "integer" },
+            "monthlyPayment": { "$ref": "core/base.json#/definitions/Money", "description": "Principal and interest only." }
+          },
+          "required": ["interestRate", "termMonths", "monthlyPayment"]
+        }
+      },
+      "required": ["offerId", "lender", "terms"]
+    }
+  }
 }

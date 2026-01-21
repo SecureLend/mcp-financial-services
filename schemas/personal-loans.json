@@ -2,7 +2,69 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.securelend.ai/products/personal-loans.json",
   "title": "Personal Loan Product Schema",
-  "description": "Schema for personal loan requests and offers. (Placeholder)",
-  "type": "object",
-  "properties": {}
+  "description": "Schema for personal loan requests and offers.",
+  "definitions": {
+    "PersonalLoanRequest": {
+      "type": "object",
+      "properties": {
+        "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+        "loanPurpose": {
+          "type": "string",
+          "enum": [
+            "debt_consolidation",
+            "home_improvement",
+            "major_purchase",
+            "medical_expenses",
+            "moving_relocation",
+            "vacation",
+            "wedding",
+            "other"
+          ]
+        },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "creditScore": { "type": "integer", "minimum": 300, "maximum": 850 },
+            "employmentStatus": { "type": "string", "enum": ["full_time", "part_time", "self_employed", "unemployed", "retired", "student"] },
+            "annualIncome": { "$ref": "core/base.json#/definitions/Money" },
+            "monthlyDebt": { "$ref": "core/base.json#/definitions/Money" }
+          },
+          "required": ["creditScore", "annualIncome"]
+        }
+      },
+      "required": ["loanAmount", "loanPurpose", "applicant"]
+    },
+    "PersonalLoanOffer": {
+      "type": "object",
+      "properties": {
+        "offerId": { "type": "string" },
+        "lender": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "maxAmount": { "$ref": "core/base.json#/definitions/Money" },
+            "interestRate": {
+              "type": "object",
+              "properties": {
+                "apr": { "$ref": "core/base.json#/definitions/Percentage" },
+                "type": { "type": "string", "enum": ["fixed", "variable"] }
+              },
+              "required": ["apr", "type"]
+            },
+            "termMonths": { "type": "integer" },
+            "monthlyPayment": { "$ref": "core/base.json#/definitions/Money" }
+          },
+          "required": ["interestRate", "termMonths"]
+        },
+        "fees": {
+          "type": "object",
+          "properties": {
+            "originationFee": { "$ref": "core/base.json#/definitions/Percentage" }
+          }
+        },
+        "applyUrl": { "type": "string", "format": "uri" }
+      },
+      "required": ["offerId", "lender", "terms"]
+    }
+  }
 }

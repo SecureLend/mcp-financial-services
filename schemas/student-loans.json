@@ -2,7 +2,53 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.securelend.ai/products/student-loans.json",
   "title": "Student Loan Product Schema",
-  "description": "Schema for student loan requests and offers. (Placeholder)",
-  "type": "object",
-  "properties": {}
+  "description": "Schema for student loan requests and offers.",
+  "definitions": {
+    "StudentLoanRequest": {
+      "type": "object",
+      "properties": {
+        "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+        "loanType": { "type": "string", "enum": ["undergraduate", "graduate", "parent", "refinance"] },
+        "school": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "degreeType": { "type": "string", "enum": ["associate", "bachelor", "master", "doctorate"] }
+          }
+        },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "creditScore": { "type": "integer" },
+            "hasCosigner": { "type": "boolean" }
+          }
+        }
+      },
+      "required": ["loanAmount", "loanType"]
+    },
+    "StudentLoanOffer": {
+      "type": "object",
+      "properties": {
+        "offerId": { "type": "string" },
+        "lender": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+            "interestRate": {
+              "type": "object",
+              "properties": {
+                "apr": { "$ref": "core/base.json#/definitions/Percentage" },
+                "type": { "type": "string", "enum": ["fixed", "variable"] }
+              },
+              "required": ["apr", "type"]
+            },
+            "repaymentTermYears": { "type": "integer" }
+          },
+          "required": ["interestRate", "repaymentTermYears"]
+        }
+      },
+      "required": ["offerId", "lender", "terms"]
+    }
+  }
 }

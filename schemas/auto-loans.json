@@ -2,7 +2,56 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.securelend.ai/products/auto-loans.json",
   "title": "Auto Loan Product Schema",
-  "description": "Schema for auto loan requests and offers. (Placeholder)",
-  "type": "object",
-  "properties": {}
+  "description": "Schema for auto loan requests and offers.",
+  "definitions": {
+    "AutoLoanRequest": {
+      "type": "object",
+      "properties": {
+        "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+        "vehicle": {
+          "type": "object",
+          "properties": {
+            "year": { "type": "integer" },
+            "make": { "type": "string" },
+            "model": { "type": "string" },
+            "condition": { "type": "string", "enum": ["new", "used", "certified_pre_owned"] }
+          },
+          "required": ["year", "make", "model", "condition"]
+        },
+        "applicant": {
+          "type": "object",
+          "properties": {
+            "creditScore": { "type": "integer" },
+            "annualIncome": { "$ref": "core/base.json#/definitions/Money" }
+          },
+          "required": ["creditScore"]
+        }
+      },
+      "required": ["loanAmount", "vehicle", "applicant"]
+    },
+    "AutoLoanOffer": {
+      "type": "object",
+      "properties": {
+        "offerId": { "type": "string" },
+        "lender": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
+        "terms": {
+          "type": "object",
+          "properties": {
+            "loanAmount": { "$ref": "core/base.json#/definitions/Money" },
+            "interestRate": {
+              "type": "object",
+              "properties": {
+                "apr": { "$ref": "core/base.json#/definitions/Percentage" }
+              },
+              "required": ["apr"]
+            },
+            "termMonths": { "type": "integer" },
+            "monthlyPayment": { "$ref": "core/base.json#/definitions/Money" }
+          },
+          "required": ["interestRate", "termMonths"]
+        }
+      },
+      "required": ["offerId", "lender", "terms"]
+    }
+  }
 }

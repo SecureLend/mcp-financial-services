@@ -2,7 +2,46 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://schemas.securelend.ai/products/calculators.json",
   "title": "Calculator Tools Schema",
-  "description": "Schema for calculator tools like loan and mortgage payment calculators. (Placeholder)",
-  "type": "object",
-  "properties": {}
+  "description": "Schema definitions for the inputs and outputs of calculator tools.",
+  "definitions": {
+    "LoanPaymentInput": {
+      "type": "object",
+      "properties": {
+        "loanAmount": { "type": "number" },
+        "interestRate": { "type": "number", "description": "Annual interest rate as a percentage, e.g., 6.5" },
+        "loanTermInMonths": { "type": "integer" }
+      },
+      "required": ["loanAmount", "interestRate", "loanTermInMonths"]
+    },
+    "LoanPaymentOutput": {
+      "type": "object",
+      "properties": {
+        "monthlyPayment": { "type": "number" },
+        "totalPayment": { "type": "number" },
+        "totalInterest": { "type": "number" }
+      }
+    },
+    "MortgagePaymentInput": {
+      "type": "object",
+      "properties": {
+        "propertyValue": { "type": "number" },
+        "downPayment": { "type": "number" },
+        "interestRate": { "type": "number" },
+        "loanTermYears": { "type": "integer" },
+        "annualPropertyTax": { "type": "number" },
+        "annualHomeInsurance": { "type": "number" }
+      },
+      "required": ["propertyValue", "downPayment", "interestRate", "loanTermYears"]
+    },
+    "MortgagePaymentOutput": {
+      "type": "object",
+      "properties": {
+        "totalMonthlyPayment": { "type": "number" },
+        "principalAndInterest": { "type": "number" },
+        "monthlyPropertyTax": { "type": "number" },
+        "monthlyHomeInsurance": { "type": "number" },
+        "loanAmount": { "type": "number" }
+      }
+    }
+  }
 }
