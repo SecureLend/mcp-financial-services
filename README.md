@@ -8,7 +8,7 @@
 This repository provides:
 
 - 📋 **Standardized JSON schemas** for loans, banking, credit cards
-- 🔌 **MCP server** at `https://mcp.securelend.ai/mcp` for Claude and ChatGPT
+- 🔌 **MCP server** at `mcp.dev.securelend.ai` for Claude and ChatGPT
 - 📚 **Integration documentation** and examples
 - 🛠️ **20+ tools** for financial product comparison
 
