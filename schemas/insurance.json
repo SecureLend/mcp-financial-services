@@ -18,10 +18,10 @@
           ]
         },
         "coverage_amount": {
-          "$ref": "../core/base.json#/definitions/Money"
+          "$ref": "core/base.json#/definitions/Money"
         },
         "business_profile": {
-          "$ref": "../core/business.json"
+          "$ref": "core/business.json"
         }
       },
       "required": ["insurance_type", "business_profile"]
@@ -30,20 +30,20 @@
       "type": "object",
       "properties": {
         "quote_id": { "type": "string" },
-        "insurer": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "insurer": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
         "policy_type": { "type": "string" },
         "coverage": {
           "type": "object",
           "properties": {
-            "limit": { "$ref": "../core/base.json#/definitions/Money" },
-            "deductible": { "$ref": "../core/base.json#/definitions/Money" }
+            "limit": { "$ref": "core/base.json#/definitions/Money" },
+            "deductible": { "$ref": "core/base.json#/definitions/Money" }
           }
         },
         "premium": {
           "type": "object",
           "properties": {
-            "monthly": { "$ref": "../core/base.json#/definitions/Money" },
-            "annual": { "$ref": "../core/base.json#/definitions/Money" }
+            "monthly": { "$ref": "core/base.json#/definitions/Money" },
+            "annual": { "$ref": "core/base.json#/definitions/Money" }
           }
         },
         "quote_expires": { "type": "string", "format": "date-time" },

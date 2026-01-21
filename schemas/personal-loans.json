@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/personal-loans.json",
+  "title": "Personal Loan Product Schema",
+  "description": "Schema for personal loan requests and offers. (Placeholder)",
+  "type": "object",
+  "properties": {}
+}

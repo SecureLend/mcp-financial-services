@@ -4,7 +4,7 @@
   "title": "Banking Products Schema",
   "description": "A wrapper schema for various banking products offered by SecureLend.",
   "oneOf": [
-    { "$ref": "./products/banking/business-banking.json#/definitions/BankingRequest" },
-    { "$ref": "./products/banking/business-banking.json#/definitions/BankingOffer" }
+    { "$ref": "./business-banking.json#/definitions/BankingRequest" },
+    { "$ref": "./business-banking.json#/definitions/BankingOffer" }
   ]
 }

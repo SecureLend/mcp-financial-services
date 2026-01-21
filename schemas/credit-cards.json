@@ -8,10 +8,10 @@
       "type": "object",
       "properties": {
         "credit_score": {
-          "$ref": "../core/base.json#/definitions/CreditScoreRange"
+          "$ref": "core/base.json#/definitions/CreditScoreRange"
         },
         "monthly_spend": {
-          "$ref": "../core/base.json#/definitions/Money"
+          "$ref": "core/base.json#/definitions/Money"
         },
         "spend_categories": {
           "type": "array",
@@ -25,7 +25,7 @@
                 ]
               },
               "monthly_amount": {
-                "$ref": "../core/base.json#/definitions/Money"
+                "$ref": "core/base.json#/definitions/Money"
               }
             }
           }
@@ -38,7 +38,7 @@
               "enum": ["cashback", "points", "miles", "no_preference"]
             },
             "annual_fee_max": {
-              "$ref": "../core/base.json#/definitions/Money"
+              "$ref": "core/base.json#/definitions/Money"
             },
             "intro_apr": {
               "type": "boolean"
@@ -46,7 +46,7 @@
           }
         },
         "business_profile": {
-          "$ref": "../core/business.json"
+          "$ref": "core/business.json"
         }
       },
       "required": ["credit_score", "monthly_spend"]
@@ -55,13 +55,13 @@
       "type": "object",
       "properties": {
         "offer_id": { "type": "string" },
-        "issuer": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "issuer": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
         "card_name": { "type": "string" },
         "rewards": {
           "type": "object",
           "properties": {
             "type": { "type": "string", "enum": ["cashback", "points", "miles"] },
-            "base_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "base_rate": { "$ref": "core/base.json#/definitions/Percentage" },
             "bonus_categories": {
               "type": "array",
               "items": {
@@ -77,7 +77,7 @@
               "type": "object",
               "properties": {
                 "description": { "type": "string" },
-                "spend_requirement": { "$ref": "../core/base.json#/definitions/Money" },
+                "spend_requirement": { "$ref": "core/base.json#/definitions/Money" },
                 "months_to_earn": { "type": "integer" }
               }
             }
@@ -86,21 +86,21 @@
         "fees": {
           "type": "object",
           "properties": {
-            "annual_fee": { "$ref": "../core/base.json#/definitions/Money" },
-            "foreign_transaction_fee": { "$ref": "../core/base.json#/definitions/Percentage" },
-            "late_payment_fee": { "$ref": "../core/base.json#/definitions/Money" }
+            "annual_fee": { "$ref": "core/base.json#/definitions/Money" },
+            "foreign_transaction_fee": { "$ref": "core/base.json#/definitions/Percentage" },
+            "late_payment_fee": { "$ref": "core/base.json#/definitions/Money" }
           }
         },
         "apr": {
           "type": "object",
           "properties": {
-            "purchase_apr": { "$ref": "../core/base.json#/definitions/Percentage" },
-            "intro_apr": { "$ref": "../core/base.json#/definitions/Percentage" },
+            "purchase_apr": { "$ref": "core/base.json#/definitions/Percentage" },
+            "intro_apr": { "$ref": "core/base.json#/definitions/Percentage" },
             "intro_period_months": { "type": "integer" }
           }
         },
-        "estimated_annual_rewards": { "$ref": "../core/base.json#/definitions/Money" },
-        "approval_probability": { "$ref": "../core/base.json#/definitions/ApprovalProbability" },
+        "estimated_annual_rewards": { "$ref": "core/base.json#/definitions/Money" },
+        "approval_probability": { "$ref": "core/base.json#/definitions/ApprovalProbability" },
         "apply_url": { "type": "string", "format": "uri" }
       },
       "required": ["offer_id", "issuer", "card_name", "rewards", "fees", "apr", "apply_url"]

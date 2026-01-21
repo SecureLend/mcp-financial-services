@@ -1,133 +1,53 @@
 
 # MCP Tool API Reference
 
-This document provides a detailed reference for the financial comparison tools available through the SecureLend Model Context Protocol (MCP) server.
+This document provides a detailed reference for the 20+ financial comparison tools available through the SecureLend Model Context Protocol (MCP) server.
 
-**MCP Endpoint:** `https://mcp.securelend.ai/mcp`
+**MCP Endpoint:** `https://mcp.dev.securelend.ai/mcp`
 
-All tools are designed to be called by AI assistants and language models. The inputs and outputs adhere to the JSON schemas defined in the `/schemas` directory.
-
----
-
-## Tools
-
-### `compare_business_loans`
-
-Compare business loan options based on a business profile and financing needs. Returns a ranked list of loan offers from multiple lenders with approval probabilities and detailed terms.
-
--   **Input Schema:** [`LoanRequest`](../schemas/products/loans/business-loans.json)
--   **Output Schema:** `LoanComparisonResponse` containing an array of [`LoanOffer`](../schemas/products/loans/business-loans.json) objects.
-
-#### Example MCP Request
-
-```json
-{
-  "tool_name": "compare_business_loans",
-  "parameters": {
-    "amount": 200000,
-    "purpose": "equipment_purchase",
-    "business": {
-      "revenue_annual": 1200000,
-      "time_in_business_months": 36,
-      "credit_score": 720,
-      "industry": "Manufacturing"
-    }
-  }
-}
-```
+All tools are designed to be called by AI assistants and language models like Claude. The inputs and outputs adhere to the JSON schemas defined in the `/schemas` directory.
 
 ---
 
-### `compare_business_banking`
+## Loan Comparison Tools
 
-Compare business checking and savings account options. Returns ranked accounts with fees, features, and estimated costs based on usage patterns.
-
--   **Input Schema:** [`BankingRequest`](../schemas/products/banking/business-banking.json)
--   **Output Schema:** `BankingComparisonResponse` containing an array of [`BankingOffer`](../schemas/products/banking/business-banking.json) objects.
-
-#### Example MCP Request
-
-```json
-{
-  "tool_name": "compare_business_banking",
-  "parameters": {
-    "account_type": "checking",
-    "monthly_revenue": 100000,
-    "monthly_transactions": 500,
-    "average_balance": 25000,
-    "features_needed": ["mobile_app", "accounting_integration", "api_access"]
-  }
-}
-```
+- **`compare_personal_loans`**: Compare personal loan offers.
+- **`compare_business_loans`**: Compare business loan offers.
+- **`compare_car_loans`**: Compare auto loan rates.
+- **`compare_student_loans`**: Compare student loan options.
+- **`compare_personal_mortgages`**: Compare mortgage rates.
+- **`compare_business_mortgages`**: Compare commercial mortgages.
 
 ---
 
-### `compare_business_credit_cards`
+## Banking Product Tools
 
-Compare business credit card offers based on spending patterns and credit profile. Returns cards with rewards, fees, and approval estimates.
-
--   **Input Schema:** [`CreditCardRequest`](../schemas/credit-cards.json)
--   **Output Schema:** `CreditCardComparisonResponse` containing an array of [`CreditCardOffer`](../schemas/credit-cards.json) objects.
-
-#### Example MCP Request
-
-```json
-{
-  "tool_name": "compare_business_credit_cards",
-  "parameters": {
-    "credit_score": 750,
-    "monthly_spend": 15000,
-    "spend_categories": [
-      { "category": "advertising", "monthly_amount": 5000 },
-      { "category": "travel", "monthly_amount": 3000 }
-    ],
-    "preferences": {
-      "rewards_type": "cashback",
-      "annual_fee_max": 500
-    }
-  }
-}
-```
+- **`compare_personal_banking`**: Compare checking/savings accounts.
+- **`compare_business_banking`**: Compare business banking products.
+- **`compare_savings_accounts`**: Compare high-yield savings rates.
 
 ---
 
-### `calculate_loan_payment`
+## Credit Card Tools
 
-Calculate the monthly payment, total cost, and amortization schedule for a loan with given terms.
+- **`compare_personal_credit_cards`**: Compare personal credit cards.
+- **`compare_business_credit_cards`**: Compare business credit cards.
 
--   **Input Schema:** See below.
--   **Output Schema:** See below.
+---
 
-#### Input Schema
+## Calculator Tools
 
-```json
-{
-  "amount": 100000,
-  "interest_rate": 8.5,
-  "term_months": 60
-}
-```
+- **`calculate_loan_payment`**: Calculate monthly loan payments.
+- **`calculate_mortgage_payment`**: Calculate PITI mortgage payments.
+- **`compare_lease_vs_purchase`**: Compare leasing vs buying vehicles.
 
-#### Output Schema
+---
 
-```json
-{
-  "monthly_payment": 2051.65,
-  "total_interest": 23099.03,
-  "total_cost": 123099.03,
-  "apr": 8.5
-}
-```
+## Application Management Tools
 
-#### Example MCP Request
-
-```json
-{
-  "tool_name": "calculate_loan_payment",
-  "parameters": {
-    "amount": 25000,
-    "interest_rate": 9.25,
-    "term_months": 36
-  }
-}
-```
+- **`get_offer`**: Submit application to selected lender.
+- **`get_multiple_offers`**: Submit to multiple lenders.
+- **`track_offer_status`**: Check application status.
+- **`display_offer_form`**: Generate pre-filled forms.
+- **`display_upload_documents_form`**: Upload required documents.
+- **`submit_documents`**: Submit application documents.

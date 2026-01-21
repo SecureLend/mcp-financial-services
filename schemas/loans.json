@@ -4,7 +4,7 @@
   "title": "Loan Products Schema",
   "description": "A wrapper schema for various loan products offered by SecureLend.",
   "oneOf": [
-    { "$ref": "./products/loans/business-loans.json#/definitions/LoanRequest" },
-    { "$ref": "./products/loans/business-loans.json#/definitions/LoanOffer" }
+    { "$ref": "./business-loans.json#/definitions/LoanRequest" },
+    { "$ref": "./business-loans.json#/definitions/LoanOffer" }
   ]
 }

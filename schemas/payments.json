@@ -8,17 +8,17 @@
       "type": "object",
       "properties": {
         "monthly_processing_volume": {
-          "$ref": "../core/base.json#/definitions/Money"
+          "$ref": "core/base.json#/definitions/Money"
         },
         "average_transaction_value": {
-          "$ref": "../core/base.json#/definitions/Money"
+          "$ref": "core/base.json#/definitions/Money"
         },
         "payment_methods": {
           "type": "array",
           "items": { "type": "string", "enum": ["in_person", "online", "mobile", "invoice"] }
         },
         "business_profile": {
-          "$ref": "../core/business.json"
+          "$ref": "core/business.json"
         }
       },
       "required": ["monthly_processing_volume", "business_profile"]
@@ -27,15 +27,15 @@
       "type": "object",
       "properties": {
         "offer_id": { "type": "string" },
-        "provider": { "$ref": "../core/base.json#/definitions/FinancialInstitution" },
+        "provider": { "$ref": "core/base.json#/definitions/FinancialInstitution" },
         "pricing": {
           "type": "object",
           "properties": {
             "model": { "type": "string", "enum": ["interchange_plus", "flat_rate", "tiered"] },
-            "online_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
-            "in_person_rate": { "$ref": "../core/base.json#/definitions/Percentage" },
-            "per_transaction_fee": { "$ref": "../core/base.json#/definitions/Money" },
-            "monthly_fee": { "$ref": "../core/base.json#/definitions/Money" }
+            "online_rate": { "$ref": "core/base.json#/definitions/Percentage" },
+            "in_person_rate": { "$ref": "core/base.json#/definitions/Percentage" },
+            "per_transaction_fee": { "$ref": "core/base.json#/definitions/Money" },
+            "monthly_fee": { "$ref": "core/base.json#/definitions/Money" }
           }
         },
         "hardware": {
@@ -44,7 +44,7 @@
             "type": "object",
             "properties": {
               "name": { "type": "string" },
-              "cost": { "$ref": "../core/base.json#/definitions/Money" }
+              "cost": { "$ref": "core/base.json#/definitions/Money" }
             }
           }
         },

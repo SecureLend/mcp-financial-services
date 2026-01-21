@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schemas.securelend.ai/products/auto-loans.json",
+  "title": "Auto Loan Product Schema",
+  "description": "Schema for auto loan requests and offers. (Placeholder)",
+  "type": "object",
+  "properties": {}
+}
