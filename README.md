@@ -166,7 +166,7 @@ See [SDK documentation](https://github.com/SecureLend/sdk) for full API referenc
 
 ## 🔒 Security & Compliance
 
-- **SOC 2 Type 2 Certified** - Audit observation started Q4 2025
+- **[SOC 2 Type 2 Certified](https://securelend.trustshare.com/home)** - Audit observation started Q4 2025
 - **No authentication required** - Comparison tools are read-only
 - **HTTPS encryption** - All data transmitted securely
 - **Privacy-first** - No storage of comparison data
