@@ -21,6 +21,10 @@ This repository provides:
 ### Quick Start (2 min)
 
 See SecureLend in action with ChatGPT:
+
+https://github.com/user-attachments/assets/cdf4de0f-4397-48a6-8085-c21b9c0d8d2c
+
+
 https://github.com/user-attachments/assets/ff0431fc-b74c-4415-8ef0-a52b73d0b6e2
 
 ## 🔌 Quick Connect
